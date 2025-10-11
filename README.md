@@ -27,12 +27,12 @@ Perplexity : math.exp(metrics["eval_loss"])
 ```
 - 아래와 같이 학습 후 플랫폼에 맞는 답변을 하는 것을 확인할 수 있다.
 
-|입력 prompt | 학습 전 답변 | 학습 후 답변 | 기대값 | 기대값 충족 여부|
-|--| --| --| --|--|
-|```# 두 수를 더하는 함수를 작성하시오. ```<br> ```function add(a,b)\n return a + ```|``b end`` | ``b``<br>``end``|``b``<br>``end``| 전 : O 후 : O
-|```local currentTargetEntity = self.Entity.AI```| ```_TARGET```<br>```if not target then```<br>```return nil, "No Target"```<br>```end```|```ChaseComponent:GetCurrentTarget()```| ```ChaseComponent:GetCurrentTarget()```[[코드 링크]](https://maplestoryworlds-creators.nexon.com/ko/apiReference/Components/AIChaseComponent)| 전 : X 후 : O
-|```local pages = _BadgeService:```| ```get_badge_pages(user)```|```GetBadgesByUserId(userId)```|```GetBadgeInfosAndWait()```[[코드 링크]](https://maplestoryworlds-creators.nexon.com/ko/apiReference/Services/BadgeService)| 전 : X 후 : X
-| ```self.ParticleComponent =```|```ParticleComponent```<br>```end```|```self.Entity.ParticleComponent```| ```self.Entity.AreaParticleComponent```[ [코드 링크]](https://maplestoryworlds-creators.nexon.com/ko/apiReference/Components/AreaParticleComponent)|전 : X 후 : O
+|입력 prompt | 학습 전 답변 | 학습 후 답변 | 기대값 |
+|------------|--------------|---------------|--------|
+|```# 두 수를 더하는 함수를```<br>``` 작성하시오. ```<br> ```function add(a,b)\n ```<br>```return a + ```|``b end`` | ``b``<br>``end``|``b``<br>``end``|
+|```local currentTargetEntity = self.Entity.AI```| ```_TARGET```<br>```if not target then```<br>```return nil, "No Target"```<br>```end```|```ChaseComponent:```<br>```GetCurrentTarget()```| ```ChaseComponent:```<br>```GetCurrentTarget()```<br>[[코드 링크]](https://maplestoryworlds-creators.nexon.com/ko/apiReference/Components/AIChaseComponent)|
+|```local pages = _BadgeService:```| ```get_badge_pages(user)```|```GetBadgesByUserId(userId)```|```GetBadgeInfosAndWait()``` <br>[[코드 링크]](https://maplestoryworlds-creators.nexon.com/ko/apiReference/Services/BadgeService)|
+| ```self.ParticleComponent =```|```ParticleComponent```<br>```end```|```self.Entity.```<br>```ParticleComponent```| ```self.Entity.```<br>```AreaParticleComponent```<br>[ [코드 링크]](https://maplestoryworlds-creators.nexon.com/ko/apiReference/Components/AreaParticleComponent)|
     
 
 # 개요 
@@ -334,12 +334,10 @@ Continue 설정 파일 config.yaml는 사용자 홈 디렉터리의 .continue �
 결과적으로는 학습된 모델을 활용해서 continue 프로그램에 연결을 하여 vs code에서 test를 진행할 수 있었다. 하지만 위에서 언급된 것처럼 colab에서 이루어지는 답변과 차이가 있었다.
 
 - function add
-<!-- <img align = "right" src="./capture/add_function.png"> -->
-![사진](./capture/add_function.png)
+<img width="480" alt="Image" src="https://github.com/user-attachments/assets/2f474dba-8489-46bf-a50e-0087e37abb49" />
 
 - current target entity
-
-![사진](./capture/current_target.png)
+<img width="480" height="1020" alt="Image" src="https://github.com/user-attachments/assets/5f8dc703-660d-486b-a136-cc41585f56b7" />
 
 # 느낀점
 
@@ -349,20 +347,30 @@ Continue 설정 파일 config.yaml는 사용자 홈 디렉터리의 .continue �
 2. 파인 튜닝 뿐만 아니라 RAG를 활용해서 결과값을 도출하는 방법도 있다. 현재, 현업에 있는 개발자가 말하길 파인 튜닝도 좋지만 RAG를 사용을 고민하고 있는 상황이라고 하였다. 하지만 이 같은 경우에는 현 프로젝트처럼 continue 프로그램을 활용하기 보다는 회사의 자체 RAG 기반 LLM을 탑재한 프로그램을 개발하여야 한다.
 <br>
 
-3. 쓰레기 데이터를 넣으면 쓰레기 모델이 나온다. 학습을 시킬 때 정제되지 않은 프롬프트와 컴플리션을 제공하였기 때문에 추후 모델을 사용할 때도 답변을 진행할 때 깔끔하지 않은 답변이 제공되기도 하였다.
+3. 쓰레기 데이터를 넣으면 쓰레기 모델이 나온다. 학습을 시킬 때 정제되지 않은 프롬프트와 컴플리션을 제공하였기 때문에 추후 모델을 사용할 때도 답변을 진행할 때 깔끔하지 않은 답변이 제공되기도 하였다. 이는 실제 사용하는 언어가 아니라 무엇이 중요하고 필요한 코드인지 검사를 하지 않았기 때문이다. 실제 회사에서 적용할 때는 데이터셋부터 현업자의 협업이 필요하다.
 <br>
  
 
 
 # 참고 자료
 https://github.com/ggerganov/llama.cpp
+
 https://apidog.com/kr/blog/how-to-download-and-use-ollama-kr/
+
 https://goddaehee.tistory.com/381
+
 https://hyunicecream.tistory.com/123
+
 https://maplestoryworlds-creators.nexon.com/ko/apiReference/How-to-use-API-Reference
+
 https://ysg2997.tistory.com/11
+
 https://ysg2997.tistory.com/8
+
 https://huggingface.co/Qwen/Qwen2.5-Coder-1.5B-Instruct
+
 https://huggingface.co/nuprl/MultiPL-T-StarCoderBase_1b
+
 https://docs.continue.dev/reference
+
 Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., ... & Polosukhin, I. (2017). Attention is all you need. Advances in neural information processing systems, 30.
