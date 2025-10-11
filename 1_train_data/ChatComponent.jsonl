@@ -1,0 +1,7 @@
+{"prompt": "local localId = _UserService.LocalPlayer.OwnerId\nif string.compare(localId, UserId) == false then", "completion": "return\nend"}
+{"prompt": "local lowerMessage = string.lower(Message)", "completion": ""}
+{"prompt": "local findEmotion = EmotionalType.Invalid\nlocal len = 23\nfor i = 1, len do", "completion": "local key = string.lower(tostring(EmotionalType.CastFrom(i)))\nif lowerMessage:find(key, 1, true ) then\nlog(\"onChat Find : \", key)\nfindEmotion = EmotionalType.CastFrom(i)\nend\nend"}
+{"prompt": "if findEmotion == EmotionalType.Invalid then", "completion": "return\nend"}
+{"prompt": "local chatComponent = self.Entity.ChatComponent\nlocal duration = #tostring(findEmotion)\nif chatComponent then", "completion": "chatComponent.UseChatEmotion = true\nchatComponent.ChatEmotionDuration = duration\nend"}
+{"prompt": "local balloonComponent = _UserService.LocalPlayer.ChatBalloonComponent\nif balloonComponent then", "completion": "balloonComponent.ShowDuration = duration\nend"}
+{"prompt": "log(\"OnChatEvent \", Message, \" duration :\", duration)", "completion": ""}

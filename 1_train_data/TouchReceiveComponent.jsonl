@@ -1,0 +1,7 @@
+{"prompt": "[None]\ntable<integer> Index", "completion": ""}
+{"prompt": "[None]\nany Handler = nil", "completion": ""}
+{"prompt": "for i =1, #self.Index do\nif self.Index[i] == touchId then\nself.Entity.TransformComponent.WorldPosition = _UILogic:ScreenToWorldPosition(touchPoint):ToVector3()\nbreak\nend\nend", "completion": ""}
+{"prompt": "if self.Handler ~= nil then\nreturn\nend", "completion": "table.insert(self.index, touchId)\nself.Handler = _InputService:ConnectEvent(ScreenTouchHoldEvent, self.Move)"}
+{"prompt": "self:AddHandler(TouchId)", "completion": ""}
+{"prompt": "self:AddHandler(TouchId)", "completion": ""}
+{"prompt": "for i =1, #self.Index do\nif self.Index[i] == TouchId then\ntable.remove(self.index, i)\nif #self.Index <= 0 then\n_InputService:DisconnectEvent(ScreenTouchHoldEvent, self.handler)\nself.Handler = nil\nend\nbreak\nend\nend", "completion": ""}

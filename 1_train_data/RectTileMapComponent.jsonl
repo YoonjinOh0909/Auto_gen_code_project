@@ -1,0 +1,7 @@
+{"prompt": "if _UserService.LocalPlayer ~= self.Entity then", "completion": "return\nend"}
+{"prompt": "local transform = self.Entity.TransformComponent\nlocal movement = self.Entity.MovementComponent\nlocal tilemap = self.Entity.CurrentMap:GetFirstChildComponentByTypeName(\"RectTileMapComponent\")", "completion": ""}
+{"prompt": "local worldPos = transform.WorldPosition", "completion": ""}
+{"prompt": "local cellPos = tilemap:ToCellPosition(worldPos)", "completion": ""}
+{"prompt": "local tileInfo = tilemap:GetTile(cellPos)", "completion": "if tileInfo == nil then\nreturn\nend"}
+{"prompt": "if (tileInfo.Name == \"Fast Tile\") then", "completion": "movement.InputSpeed = 2.4"}
+{"prompt": "elseif (tileInfo.Name == \"Slow Tile\") then", "completion": "movement.InputSpeed = 1.2\nend"}

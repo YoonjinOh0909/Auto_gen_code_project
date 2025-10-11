@@ -1,0 +1,6 @@
+{"prompt": "[Sync]\nnumber Meso = 0", "completion": ""}
+{"prompt": "self.Meso = _UtilLogic:RandomIntegerRange(1, 1500)\nlocal sprite = self.Entity.SpriteRendererComponent", "completion": ""}
+{"prompt": "if self.Meso < 50 then", "completion": "sprite.SpriteRUID = \"000000\""}
+{"prompt": "elseif self.Meso < 100 then", "completion": "sprite.SpriteRUID = \"000000\""}
+{"prompt": "elseif self.Meso < 1000 then", "completion": "sprite.SpriteRUID = \"000000\""}
+{"prompt": "else", "completion": "sprite.SpriteRUID = \"000000\"\nend"}

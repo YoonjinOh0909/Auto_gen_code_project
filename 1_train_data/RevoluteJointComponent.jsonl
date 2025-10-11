@@ -1,0 +1,6 @@
+{"prompt": "self.Entity.RevoluteJointComponent:SetMotorSpeed(1, 10)", "completion": ""}
+{"prompt": "self.Entity.RevoluteJointComponent:SetMotorSpeed(1, -10)", "completion": ""}
+{"prompt": "self.Entity.RevoluteJointComponent:SetMotorSpeed(1, 0)", "completion": ""}
+{"prompt": "if key == KeyboardKey.W then", "completion": "self:GoUp()"}
+{"prompt": "elseif key == KeyboardKey.S then", "completion": "self:GoDown()\nend"}
+{"prompt": "self:Stop()", "completion": ""}

@@ -1,0 +1,4 @@
+{"prompt": "HandleScreenTouchEvent (ScreenTouchEvent event)\n{", "completion": "\tlocal TouchPoint = event.TouchPoint\n\tlocal worldPosition = _UILogic:ScreenToWorldPosition(TouchPoint)\n\tlocal me = _UserService.LocalPlayer\n\tlocal currentMapName = me.CurrentMapName\n\tlocal destinationPosition = Vector3(worldPosition.x, worldPosition.y, 0)\n\t_TeleportService:TeleportToMapPosition(me, destinationPosition, currentMapName)\n}"}
+{"prompt": "UITransfromComponent followingUI = nil", "completion": ""}
+{"prompt": "void OnBeginPlay()\n{", "completion": "\tself.followingUI = _EntityService:GetEntityByPath(\"/ui/UIGroup/UIEmpty\").UITransformComponent\n}"}
+{"prompt": "HandleScreenTouchEvent (ScreenTouchEvent event)\n{", "completion": "\tlocal TouchPoint = event.TouchPoint\n\tself.followingUI.anchoredPosition = _UILogic:ScreenToUIPosition(TouchPoint)\n}"}

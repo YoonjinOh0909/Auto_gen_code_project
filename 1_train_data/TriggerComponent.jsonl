@@ -1,0 +1,5 @@
+{"prompt": "[Sync]\nboolean IsGettingHealed = false", "completion": ""}
+{"prompt": "[Sync]\nnumber Hp = 1000", "completion": ""}
+{"prompt": "if self.IsGettingHealed then\nlocal player = self.Entity.PlayerComponent\nself.Hp = self.Hp + (10.0 * delta)\nplayer.Hp = math.floor(self.Hp)\nend", "completion": ""}
+{"prompt": "if TriggerBodyEntity.Name == \"Heal\" then\nself.IsGettingHealed = true\nend", "completion": ""}
+{"prompt": "if TriggerBodyEntity.Name == \"Heal\" then\nself.IsGettingHealed = false\nend", "completion": ""}

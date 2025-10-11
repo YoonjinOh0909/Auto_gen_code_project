@@ -1,0 +1,3 @@
+{"prompt": "local userEntity = _UserService:GetUserEntityByUserId(UserId)\nlocal nametag = userEntity.NameTagComponent", "completion": ""}
+{"prompt": "if UserId == \"000000\" then", "completion": "nametag.Name = \"Admin\"\nnametag.FontColor = Color.magenta"}
+{"prompt": "else", "completion": "nametag.Name = \"Player\"\nnametag.FontColor = Color.cyan\nend"}

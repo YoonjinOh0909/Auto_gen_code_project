@@ -1,0 +1,9 @@
+{"prompt": "[Sync]\nboolean IsStarted = false", "completion": ""}
+{"prompt": "[Sync]\nboolean IsFinished = false", "completion": ""}
+{"prompt": "if self.IsFinished then", "completion": "self.Entity.MovementComponent:Stop() \nreturn\nend"}
+{"prompt": "if self.IsStarted == false and self.Entity.MovementComponent:IsFaceLeft() then", "completion": "self.IsStarted = true\nend"}
+{"prompt": "if self.IsStarted == false then", "completion": "return\nend"}
+{"prompt": "self.Entity.MovementComponent:MoveToDirection(Vector2(1,0), delta)", "completion": ""}
+{"prompt": "if TriggerBodyEntity.Name == \"Name\" then", "completion": "self.Entity.MovementComponent.JumpForce = 1.5\nself.Entity.MovementComponent:Jump()"}
+{"prompt": "elseif TriggerBodyEntity.Name == \"Name\" then", "completion": "self.Entity.MovementComponent:DownJump()"}
+{"prompt": "elseif TriggerBodyEntity.Name == \"Name\" then", "completion": "self.IsFinished = true\nend"}

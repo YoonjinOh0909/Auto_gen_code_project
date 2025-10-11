@@ -1,0 +1,4 @@
+{"prompt": "[None]\ntable WallTile = {}", "completion": ""}
+{"prompt": "table GetWallTile ()", "completion": "return self.WallTile"}
+{"prompt": "if Normal == Vector2.left or Normal == Vector2.right then", "completion": "self.WallTile ={\ninfo = TileInfo,\nposition = TilePosition:Clone(),\nnormal = Normal:Clone(),\ntilemap = TileMap\n}"}
+{"prompt": "local currWallTile = self.WallTile\nif currWallTile ~= nil and currWallTile.position == TilePosition then", "completion": "self.WallTile = nil\nend"}

@@ -1,0 +1,7 @@
+{"prompt": "[None]\nEntity TextEntity = EntityPath", "completion": ""}
+{"prompt": "local sliderComp = self.Entity.SliderComponent\nif not sliderComp then", "completion": "return\nend"}
+{"prompt": "sliderComp.UseIntegerValue = true\nsliderComp.MaxValue = 100\nsliderComp.MinValue = 0\nsliderComp.Value = 0", "completion": "self:SetSliderText(sliderComp.Value)"}
+{"prompt": "if not self.TextEntity then", "completion": "return\nend"}
+{"prompt": "local textComp = self.TextEntity.TextComponent\nif not textComp then", "completion": "return\nend"}
+{"prompt": "textComp.Text = string.format(\"%d\", sliderValue)", "completion": ""}
+{"prompt": "self:SetSliderText(sliderValue)", "completion": ""}

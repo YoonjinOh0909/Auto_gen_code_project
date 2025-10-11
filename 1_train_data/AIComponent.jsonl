@@ -1,0 +1,16 @@
+{"prompt": "[Sync]\nnumber DetectDistance = 4", "completion": ""}
+{"prompt": "local chatBallon = self.Entity.ChatBalloonComponent\nif chatBallon == nil then", "completion": "chatBallon = self.Entity:AddComponent(ChatBalloonComponent)\nend"}
+{"prompt": "self._T.nearestPlayer = nil", "completion": ""}
+{"prompt": "chatBallon.AutoShowEnabled = true", "completion": ""}
+{"prompt": "chatBallon.ChatModeEnabled = false", "completion": ""}
+{"prompt": "chatBallon.ShowDuration = 1", "completion": ""}
+{"prompt": "chatBallon.HideDuration = 0", "completion": ""}
+{"prompt": "chatBallon.FontSize = 1.5", "completion": ""}
+{"prompt": "local function isNearPlayer(deltaTime)", "completion": "local players = _UserService:GetUsersByMapComponent(self.Entity.CurrentMap.MapComponent)\nself._T.nearestPlayer = nil\nlocal dist = math.maxinteger\nfor i, player in pairs(players) do\nif isvalid(player) then\nlocal distTemp = Vector2.Distance(\nplayer.TransformComponent.Position:ToVector2(), self.Entity.TransformComponent.Position:ToVector2())\ndist = math.min(dist, distTemp)\nif dist <= self.DetectDistance then\nself._T.nearestPlayer = player\nend\nend\nend\n\nif self._T.nearestPlayer == nil then\nreturn BehaviourTreeStatus.Failure\nelse\nreturn BehaviourTreeStatus.Success\nend\nend"}
+{"prompt": "local function lookAtNearestPlayer(deltaTime)", "completion": "local flipX = self.Entity.TransformComponent.Position.x < self._T.nearestPlayer.TransformComponent.Position.x\nself.Entity.SpriteRendererComponent.FlipX = flipX\nreturn BehaviourTreeStatus.Success\nend"}
+{"prompt": "local function warn(deltaTime)", "completion": "chatBallon.Message = \"Don't come!\"\nreturn BehaviourTreeStatus.Success\nend"}
+{"prompt": "local function sleep(deltaTime)", "completion": "chatBallon.Message = \"Zzz...\"\nreturn BehaviourTreeStatus.Success\nend"}
+{"prompt": "local rootNode = SelectorNode(\"Root\")", "completion": ""}
+{"prompt": "local alertSeq = SequenceNode(\"AlertSequence\")", "completion": "alertSeq:AttachChild(self:CreateLeafNode(\"IsNearPlayer\", isNearPlayer))\nalertSeq:AttachChild(self:CreateLeafNode(\"LookAtNearestPlayer\", lookAtNearestPlayer))\nalertSeq:AttachChild(self:CreateLeafNode(\"Warn\", warn))"}
+{"prompt": "rootNode:AttachChild(alertSeq)", "completion": "rootNode:AttachChild(self:CreateLeafNode(\"Sleep\", sleep))"}
+{"prompt": "self:SetRootNode(rootNode)", "completion": ""}

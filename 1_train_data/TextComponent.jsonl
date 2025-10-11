@@ -1,0 +1,15 @@
+{"prompt": "[None]\nnumber TimerID = 0", "completion": ""}
+{"prompt": "[None]\nnumber MessageLength = 0", "completion": ""}
+{"prompt": "[None]\nnumber MessageIdx = 0", "completion": ""}
+{"prompt": "[None]\nstring RawMessage = \"\"", "completion": ""}
+{"prompt": "self.Entity.Parent.Enable = true", "completion": ""}
+{"prompt": "self.InputMessage = \"안녕하세요. MSW에 오신 것을 환영합니다.\"", "completion": ""}
+{"prompt": "local textComponent = self.Entity.TextComponent\nif not textComponent then\nreturn\nend", "completion": ""}
+{"prompt": "textComponent.Bold = true\ntextComponent.Alignment = TextAlignmentType.UpperLeft\ntextComponent.FontColor = Color.white\ntextComponent.UseOutLine = true\ntextComponent.OutlineColor = Color.black\ntextComponent.FontSize = 50", "completion": ""}
+{"prompt": "self:ShowDialogueOverTime(self.InputMessage, 0.1)", "completion": ""}
+{"prompt": "if interval <= 0 then\ninterval = 0.1\nend", "completion": ""}
+{"prompt": "self.MessageIdx = 0\nself.RawMessage = rawMessage\nself.MessageLength = utf8.len(rawMessage)", "completion": ""}
+{"prompt": "local UpdateMessage = function()\nif self.MessageIdx < self.MessageLength then\nself.MessageIdx = self.MessageIdx + 1\nlocal currentString = _UtilLogic:SubString(self.RawMessage, 1, self.MessageIdx)\nif _UtilLogic:IsNilorEmptyString(currentString) == false then\nself.Entity.TextComponent.Text =  currentString\nend\nelse\nself.Entity.TextComponent.Text =  \"\"\nself:RestartDialogue()\nend\nend", "completion": ""}
+{"prompt": "self.TimerID = _TimerService:SetTimerRepeat(UpdateMessage, interval)", "completion": ""}
+{"prompt": "_TimerService:ClearTimer(self.TimerID)", "completion": ""}
+{"prompt": "self.MessageIdx = 0", "completion": ""}

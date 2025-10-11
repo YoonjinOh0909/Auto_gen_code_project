@@ -1,0 +1,1 @@
+{"prompt": "self.Entity.MaskComponent.Softness = Vector2Int(10, 10)", "completion": "self.Entity.MaskComponent.Padding = RectOffset(10, 10, 10, 10)"}

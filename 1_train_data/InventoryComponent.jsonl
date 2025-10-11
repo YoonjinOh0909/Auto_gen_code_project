@@ -1,0 +1,13 @@
+{"prompt": "if self:IsClient() then", "completion": "return\nend"}
+{"prompt": "local inventory = self.Entity.InventoryComponent\nlocal items = inventory:GetItemList()", "completion": ""}
+{"prompt": "if TriggerBodyEntity.Name == \"Get Item\" then", "completion": "local newItem = _ItemService:CreateItem(TestItem, \"Test Item\", inventory)\nnewItem.ItemCount = 3"}
+{"prompt": "elseif TriggerBodyEntity.Name == \"Give Item\" then", "completion": "if #items > 0 then\nitems[1].ItemCount = items[1].ItemCount - 1\nif items[1].ItemCount == 0 then\n_ItemService:RemoveItem(items[1])\nend\nend"}
+{"prompt": "elseif TriggerBodyEntity.Name == \"Trash Can\" then", "completion": "if #items > 0 then\n_ItemService:RemoveItem(items[1])\nend\nend"}
+{"prompt": "if self:IsServer() then", "completion": "return\nend"}
+{"prompt": "log(\"[Get Item]\")", "completion": ""}
+{"prompt": "if self:IsServer() then", "completion": "return\nend"}
+{"prompt": "log(\"[Item Removed]\")", "completion": ""}
+{"prompt": "if self:IsServer() then", "completion": "return\nend"}
+{"prompt": "log (\"[Give Item]\")", "completion": ""}
+{"prompt": "if self:IsServer() then", "completion": "return\nend"}
+{"prompt": "log(\"[Current Items]\")", "completion": "for i = 1, #Items do\nlog(\"Item\" .. i .. \": \", Items[i].ItemDataTableName)\nend"}

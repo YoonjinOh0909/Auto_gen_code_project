@@ -1,0 +1,8 @@
+{"prompt": "[None]\ntable Puzzle = {}", "completion": ""}
+{"prompt": "[None]\nPixelGUIRendererComponent PixelGUIRendererComp", "completion": ""}
+{"prompt": "[None]\ntable PuzzlePos = {}", "completion": ""}
+{"prompt": "self.PixelGUIRendererComp = self.Entity.PixelGUIRendererComponent\nself.PixelGUIRendererComp:FillColor(Color.black)", "completion": ""}
+{"prompt": "for i=1, 9 do", "completion": "local xPos = _UtilLogic:RandomIntegerRange(1, self.PixelGUIRendererComp.Width)\nlocal yPos = _UtilLogic:RandomIntegerRange(1, self.PixelGUIRendererComp.Height)\nself.Puzzles[i] = Vector2(xPos, yPos)\nend"}
+{"prompt": "if index > #self.Puzzles then", "completion": "return \nend"}
+{"prompt": "self.PixelGUIRendererComp:SetPixel(self.Puzzles[index].x, self.Puzzles[index].y, Color.yellow)\nwait(0.35)", "completion": "self.PixelGUIRendererComp:SetPixel(self.Puzzles[index].x, self.Puzzles[index].y, Color.black)\nwait(0.1)\nself:StartPuzzle(index + 1)"}
+{"prompt": "if key == KeyboardKey.F then", "completion": "self:StartPuzzle(1)\nend"}

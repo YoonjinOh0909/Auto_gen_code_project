@@ -1,0 +1,4 @@
+{"prompt": "local background = self.Entity.BackgroundComponent", "completion": ""}
+{"prompt": "background:ChangeBackgroundByTemplateRUID(\"794ad8421e2543d8a6d2c70307637450\")", "completion": ""}
+{"prompt": "background:ChangeBackgroundBySolidColor(Color.white)", "completion": ""}
+{"prompt": "background:ChangeBackgroundByWebUrl(\"Http://WebUrl\")", "completion": ""}

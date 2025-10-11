@@ -1,0 +1,4 @@
+{"prompt": "local entity = _EntityService:GetEntity(id)", "completion": "_EntityService:Destroy(entity)"}
+{"prompt": "local entities = _EntityService:GetEntitiesByPath(path)", "completion": "for k, v in pairs(entities) do\n\tv.Enable = enable\nend"}
+{"prompt": "local entities = _EntityService:GetEntitiesByTag(tag)", "completion": "for k, v in pairs(entities) do\n\tv.Visible = visible\nend"}
+{"prompt": "local entities = _EntityService:GetEntitiesSpawnedByModelId(\"model://movemonster\")", "completion": "for k, v in pairs(entities) do\n\tv.RigidbodyComponent:AddForce(Vector2(0.0, 5.0))\nend"}

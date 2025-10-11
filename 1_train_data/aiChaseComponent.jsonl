@@ -1,0 +1,12 @@
+{"prompt": "local aiChaseComponent = self.Entity.AIChaseComponent\nif aiChaseComponent == nil then", "completion": "return\nend"}
+{"prompt": "aiChaseComponent.IsChaseNearPlayer = false", "completion": ""}
+{"prompt": "local chatBallon = self.Entity.ChatBalloonComponent\nif chatBallon == nil then", "completion": "chatBallon = self.Entity:AddComponent(ChatBalloonComponent)\nend"}
+{"prompt": "chatBallon.ChatModeEnabled = false", "completion": ""}
+{"prompt": "chatBallon.ShowDuration = 1", "completion": ""}
+{"prompt": "chatBallon.HideDuration = 0", "completion": ""}
+{"prompt": "chatBallon.FontSize = 1.2", "completion": ""}
+{"prompt": "if self.Entity.ChatBalloonComponent == nil then", "completion": "return\nend"}
+{"prompt": "local currentTargetEntity = self.Entity.AIChaseComponent:GetCurrentTarget()\nif currentTargetEntity == nil then", "completion": "self.Entity.ChatBalloonComponent.AutoShowEnabled = false"}
+{"prompt": "else", "completion": "self.Entity.ChatBalloonComponent.AutoShowEnabled = true\nself.Entity.ChatBalloonComponent.Message = \"target is \"..currentTargetEntity.Name\nend"}
+{"prompt": "if self.Entity.AIChaseComponent == nil then", "completion": "return\nend"}
+{"prompt": "self.Entity.AIChaseComponent:SetTarget(AttackerEntity)", "completion": ""}

@@ -1,0 +1,3 @@
+{"prompt": "local tween = self.Entity.TweenLineComponent", "completion": ""}
+{"prompt": "if tween.CurrentState == TweenState.Playing then\ntween:Pause()\nelse\ntween:Play()\nend", "completion": ""}
+{"prompt": "if key == KeyboardKey.Q then\nself:StopOrPlay()\nend", "completion": ""}

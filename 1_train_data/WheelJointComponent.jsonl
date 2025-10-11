@@ -1,0 +1,4 @@
+{"prompt": "self.Entity.WheelJointComponent:SetMotorEnable(1, true)\nself.Entity.WheelJointComponent:SetMotorSpeed(1, -10)", "completion": ""}
+{"prompt": "self.Entity.WheelJointComponent:SetMotorEnable(1, true)\nself.Entity.WheelJointComponent:SetMotorSpeed(1, 10)", "completion": ""}
+{"prompt": "self.Entity.WheelJointComponent:SetMotorEnable(1, false)", "completion": ""}
+{"prompt": "if key == KeyboardKey.R then\nif self.Entity.DistanceJointComponent:GetJointsCount() == 0 then\nself:Connect()\nelse\nself:Disconnect()\nend\nend", "completion": ""}

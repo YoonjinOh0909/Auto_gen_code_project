@@ -1,0 +1,4 @@
+{"prompt": "local state = self.Entity.StateComponent\nif state == nil then\nstate = self.Entity:AddComponent(\"StateComponent\")\nend", "completion": ""}
+{"prompt": "local chatBallon = self.Entity.ChatBalloonComponent\nif chatBallon == nil then\nchatBallon = self.Entity:AddComponent(\"ChatBalloonComponent\")\nend", "completion": ""}
+{"prompt": "self.Entity.ChatBalloonComponent.AutoShowEnabled = true\nself.Entity.ChatBalloonComponent.ChatModeEnabled = false\nself.Entity.ChatBalloonComponent.ShowDuration = 1\nself.Entity.ChatBalloonComponent.HideDuration = 0\nself.Entity.ChatBalloonComponent.FontSize = 2", "completion": ""}
+{"prompt": "self.Entity.ChatBalloonComponent.Message = self.Entity.StateComponent.CurrentStateName", "completion": ""}

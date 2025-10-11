@@ -1,0 +1,3 @@
+{"prompt": "integer GameIdx = \"0\"", "completion": ""}
+{"prompt": "void EnterGame (table userIds)\n{", "completion": "\tlocal roomKey = \"Game\" .. tostring(self.gameIdx)\n\tself.gameIdx = self.GameIdx + 1\n\tlocal instanceRoom = _RoomService:CreateInstanceRoom(roomKey, {\"GameMap01\", \"GameMap02\"})\n\tif instanceRoom == nil then\n\t\tlog_error(\"Cannot create instance room. roomKey: \" .. roomKey)\n\t\treturn\n\tend\n\tinstanceRoom:MoveUsers(userIds, \"GameMap01\")\n}"}
+{"prompt": "void ReturnToLobby (table userIds)\n{", "completion": "\t_RoomService:MoveUsersToStaticRoom(userIds, \"LobbyMap\")\n}"}

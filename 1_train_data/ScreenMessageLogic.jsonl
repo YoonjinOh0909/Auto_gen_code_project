@@ -1,0 +1,2 @@
+{"prompt": "HandleUserEnterEvent (UserEnterEvent event)\n{", "completion": "\tlocal UserId = event.UserId\n\tlocal userEntity = _UserService:GetUserEntityByUserId(UserId)\n\tlocal userName = userEntity.NameTagComponent.Name\n\t_ScreenMessageLogic:PublicMsg(userName .. \" has entered\")\n}"}
+{"prompt": "HandleDeadEvent (DeadEvent event)\n{", "completion": "\tif _UserService.LocalPlayer ~= self.Entity then\n\t\treturn\n\tend\n\t_ScreenMessageLogic:PrivateMsg(\"YOU DIED\")\n}"}

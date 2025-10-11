@@ -1,0 +1,2 @@
+{"prompt": "if key == KeyboardKey.LeftShift then\n\tlocal targetEntity = _EntityService:GetEntityByPath(EntityPath)\n\tlocal targetCamera = targetEntity.CameraComponent\n\t_CameraService:SwitchCameraTo(targetCamera)\n\t_CameraService:ZoomTo(200, 1.0)\nend", "completion": ""}
+{"prompt": "if key == KeyboardKey.LeftShift then\n\tlocal targetCamera = _UserService.LocalPlayer.CameraComponent\n\t_CameraService:ZoomReset()\n\t_CameraService:SwitchCameraTo(targetCamera)\nend", "completion": ""}

@@ -1,0 +1,10 @@
+{"prompt": "if emotionNumber == 1 then", "completion": "self.Entity.AvatarGUIRendererComponent:PlayEmotion(EmotionalType.Vomit, 5)"}
+{"prompt": "elseif emotionNumber == 2 then", "completion": "self.Entity.AvatarGUIRendererComponent:PlayEmotion(EmotionalType.Glitter, 5)"}
+{"prompt": "elseif emotionNumber == 3 then", "completion": "self.Entity.AvatarGUIRendererComponent:PlayEmotion(EmotionalType.Hum, 5)"}
+{"prompt": "elseif emotionNumber == 4 then", "completion": "self.Entity.AvatarGUIRendererComponent:PlayEmotion(EmotionalType.Love, 5)"}
+{"prompt": "elseif emotionNumber == 5 then", "completion": "self.Entity.AvatarGUIRendererComponent:PlayEmotion(EmotionalType.Shine, 5)\nend"}
+{"prompt": "if key == KeyboardKey.F1 then", "completion": "self:ChangeEmotion(1)"}
+{"prompt": "elseif key == KeyboardKey.F2 then", "completion": "self:ChangeEmotion(2)"}
+{"prompt": "elseif key == KeyboardKey.F3 then", "completion": "self:ChangeEmotion(3)"}
+{"prompt": "elseif key == KeyboardKey.F4 then", "completion": "self:ChangeEmotion(4)"}
+{"prompt": "elseif key == KeyboardKey.F5 then", "completion": "self:ChangeEmotion(5)\nend"}

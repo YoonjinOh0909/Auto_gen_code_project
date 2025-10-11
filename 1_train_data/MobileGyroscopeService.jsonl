@@ -1,0 +1,3 @@
+{"prompt": "if _MobileGyroscopeService:IsHWSupported() then\n\tlocal enabled = _MobileGyroscopeService:StartAndWait()\n\tif enabled then\n\t\t _UIToast:ShowMessage(\"Gyroscope Started!\")\n\telse\n\t\tlog_error(\"Failed to start gyroscope\")\n\tend\nend", "completion": ""}
+{"prompt": "if _MobileGyroscopeService:IsEnabled() then\n\tlocal rotRate = _MobileGyroscopeService:GetRotationRate()\n\tlocal angularVelocity = Vector2(rotRate.x, rotRate.y)\n\tself:Impact(angularVelocity)\nend", "completion": ""}
+{"prompt": "if dir.x > 0.2 or dir.y > 0.2 then\n\tself.BallEntityRef.PhysicsRigidbodyComponent:ApplyForce(dir * self.ForcePower)   \nend", "completion": ""}

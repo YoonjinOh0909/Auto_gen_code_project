@@ -1,0 +1,2 @@
+{"prompt": "local pages = _BadgeService:GetBadgeInfosAndWait({BadgeGrade.Normal, BadgeGrade.Rare}, BadgeStatus.Ing)", "completion": ""}
+{"prompt": "while true do\n\tlocal pageDatas = pages:GetCurrentPageDatas()\n\tfor _, badge in ipairs(pageDatas) do\n\t\tlog(\"Badge Id: \" .. badge.Id .. \" Name: \" .. badge.Name .. \" Grade: \" .. tostring(badge.Grade))\n\tend\n\tif pages.IsLastPage then\n\t\tbreak\n\tend\n\tpages:MoveToNextPageAndWait()\nend", "completion": ""}

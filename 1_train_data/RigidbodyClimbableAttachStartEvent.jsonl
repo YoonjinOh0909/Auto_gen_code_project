@@ -1,0 +1,2 @@
+{"prompt": "for i, j in ipairs(self.Entity:GetChildComponentsByTypeName(\"SpriteRendererComponent\"))  do\n\tj.Entity.SpriteRendererComponent.SortingLayer =     attachedEntity.ClimbableSpriteRendererComponent.SortingLayer\nend", "completion": ""}
+{"prompt": "self:ChangeChildSortingLayer(AttachedEntity)", "completion": ""}

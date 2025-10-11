@@ -1,0 +1,14 @@
+{"prompt": "[None]\nboolean IsButtonDown = false", "completion": ""}
+{"prompt": "[None]\nnumber RedVal = 0", "completion": ""}
+{"prompt": "[None]\nnumber TimerID = 0", "completion": ""}
+{"prompt": "[None]\nstring MonsterRUID = \"000000\"", "completion": ""}
+{"prompt": "[None]\nstring OriginalRUID = \"\"", "completion": ""}
+{"prompt": "self.OriginalRUID = self.Entity.SpriteGUIRendererComponent.ImageRUID", "completion": ""}
+{"prompt": "_TimerService:ClearTimer(self.TimerID)\nself.Entity.SpriteGUIRendererComponent.ImageRUID = self.OriginalRUID\nself.IsButtonDown = false", "completion": "self.RedVal = 0"}
+{"prompt": "if self.IsButtonDown then", "completion": "self:CancelHoldButton()"}
+{"prompt": "else", "completion": "self.Entity.SpriteGUIRendererComponent.ImageRUID = self.MonsterRUID\nend"}
+{"prompt": "self.IsButtonDown = true", "completion": ""}
+{"prompt": "local AddMoreRed  = function()", "completion": "if self.RedVal <= 1 then\nself.RedVal = self.RedVal + 0.2\nself.Entity.ButtonComponent.Colors.PressedColor = Color(self.RedVal, 0, 0)\nend\nend"}
+{"prompt": "self.TimerID = _TimerService:SetTimerRepeat(AddMoreRed, 0.3)", "completion": ""}
+{"prompt": "self.Entity.SpriteGUIRendererComponent.ImageRUID = self.OriginalRUID", "completion": "self.IsButtonDown = false"}
+{"prompt": "if state == ButtonState.Released then", "completion": "self:CancelHoldButton()\nend"}

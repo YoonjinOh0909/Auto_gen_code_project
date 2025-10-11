@@ -1,0 +1,6 @@
+{"prompt": "[None]\nnumber Fill = 0", "completion": ""}
+{"prompt": "[None]\nboolean IsRequire = false", "completion": ""}
+{"prompt": "local renderer = self.Entity.SpriteGUIRendererComponent\nif not renderer then", "completion": "return\nend"}
+{"prompt": "self.IsRequire = true", "completion": "renderer.ImageRUID = \"000000\"\nrenderer.Type = ImageType.Filled\nrenderer.FillMethod = FillMethodType.Radial360\nrenderer.Color = Color.white\nrenderer.AnimClipPlayType = SpriteAnimClipPlayType.ZigzagLoop"}
+{"prompt": "if not self.IsRequire then", "completion": "return\nend"}
+{"prompt": "self.Fill = math.min( self.Fill + delta, 1)", "completion": "self.Entity.SpriteGUIRendererComponent.FillAmount = self.Fill\nif self.Fill >= 1.0 then\nself.Fill = 0\nend"}

@@ -1,0 +1,3 @@
+{"prompt": "if _MobileAccelerometerService:IsHWSupported() then\n\t_MobileAccelerometerService:Start()\n\t_UIToast:ShowMessage(\"Start AccelerometerService\")\nend", "completion": ""}
+{"prompt": "if _MobileAccelerometerService:IsEnabled() then\n\tlocal accDir = _MobileAccelerometerService:GetLastAcceleration()\n\tlocal dir = Vector2(accDir.x, accDir.y)\n\tself:Tilt(dir)\nend", "completion": ""}
+{"prompt": "self.BallEntityRef.PhysicsRigidbodyComponent:ApplyForce(dir * self.ForcePower)", "completion": ""}

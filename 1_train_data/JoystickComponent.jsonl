@@ -1,0 +1,2 @@
+{"prompt": "local joystick = _EntityService:GetEntityByPath(\"/ui/DefaultGroup/UIJoystick\")", "completion": "joystick.JoystickComponent.DownArrow = KeyboardKey.E"}
+{"prompt": "self:SetJoystickDownArrow()", "completion": ""}

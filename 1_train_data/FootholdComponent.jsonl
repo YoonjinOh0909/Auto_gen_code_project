@@ -1,0 +1,17 @@
+{"prompt": "local footholdComponent = self.Entity.CurrentMap.FootholdComponent\nif footholdComponent == nil then", "completion": "return\nend"}
+{"prompt": "local foothold = footholdComponent:GetNearestFootholdByPoint(point, distance)\nif foothold == nil then", "completion": "log(\"There is no close foothold.\")\nreturn\nend"}
+{"prompt": "local entity = _EntityService:GetEntity(foothold.OwnerId)\nif entity == nil or entity.CustomFootholdComponent == nil then", "completion": "return\nend"}
+{"prompt": "if entity.CustomFootholdComponent.IsDynamicFoothold == false then", "completion": "return\nend"}
+{"prompt": "entity:Destroy()", "completion": ""}
+{"prompt": "local footholdComponent = self.Entity.CurrentMap.FootholdComponent\nif footholdComponent == nil then", "completion": "return\nend"}
+{"prompt": "local foothold = footholdComponent:Raycast(self.Entity.TransformComponent.Position:ToVector2(), direct:Normalize(), distance)\nif foothold == nil then", "completion": "log(\"There is no close foothold.\")\nreturn\nend"}
+{"prompt": "local entity = _EntityService:GetEntity(foothold.OwnerId)\nif entity == nil or entity.CustomFootholdComponent == nil then", "completion": "return\nend"}
+{"prompt": "if entity.CustomFootholdComponent.IsDynamicFoothold == false then", "completion": "return\nend"}
+{"prompt": "entity:Destroy()", "completion": ""}
+{"prompt": "local footholdComponent = self.Entity.CurrentMap.FootholdComponent\nif footholdComponent == nil then", "completion": "return\nend"}
+{"prompt": "local footholds = footholdComponent:RaycastAll(self.Entity.TransformComponent.Position:ToVector2(), direct:Normalize(), distance)\nif footholds == nil then", "completion": "log(\"There is no close foothold.\")\nreturn\nend"}
+{"prompt": "for i, j in ipairs(footholds) do", "completion": "local entity = _EntityService:GetEntity(j.OwnerId)\nif entity == nil or entity.CustomFootholdComponent == nil then\nreturn\nend\n\nif entity.CustomFootholdComponent.IsDynamicFoothold == false then\nreturn\nend\n\nentity:Destroy()\nend"}
+{"prompt": "local rand = _UtilLogic:RandomIntegerRange(1,3)", "completion": "log(rand)"}
+{"prompt": "if rand == 1 then", "completion": "self:GetNearestFootholdByPoint(_UILogic:ScreenToWorldPosition(TouchPoint), 1)"}
+{"prompt": "elseif rand == 2 then", "completion": "self:Raycast(_UILogic:ScreenToWorldPosition(TouchPoint), 5)"}
+{"prompt": "else", "completion": "self:RaycastAll(_UILogic:ScreenToWorldPosition(TouchPoint), 10)\nend"}

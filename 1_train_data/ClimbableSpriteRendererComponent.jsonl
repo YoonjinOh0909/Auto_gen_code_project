@@ -1,0 +1,2 @@
+{"prompt": "local entity = _EntityService:GetEntityByPath(EntityPath)", "completion": "entity.ClimbableSpriteRendererComponent.TiledSize = tiledSize\nentity.ClimbableSpriteRendererComponent:ResetColliderBox()"}
+{"prompt": "if TriggerBodyEntity.Name == \"Name\" then", "completion": "self:ResizeRenderer(Vector2(1, 5))\nend"}

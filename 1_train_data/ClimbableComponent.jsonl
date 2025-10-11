@@ -1,0 +1,4 @@
+{"prompt": "local entity = _EntityService:GetEntityByPath(EntityPath)", "completion": "entity.ClimbableComponent.BoxSize = boxSize"}
+{"prompt": "local entity = _EntityService:GetEntityByPath(EntityPath)", "completion": "entity.ClimbableComponent.SpeedFactor = speedVector"}
+{"prompt": "if TriggerBodyEntity.Name == \"Name\" then", "completion": "self:ChangeBoxSize(Vector2(3, 10))"}
+{"prompt": "elseif TriggerBodyEntity.Name == \"Name\" then", "completion": "self:ChangeSpeedVector(Vector2(1, 2))\nend"}

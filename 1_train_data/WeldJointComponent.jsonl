@@ -1,0 +1,2 @@
+{"prompt": "self.Entity.WeldJointComponent:AddJoint(target, Vector2(0, -1), Vector2.zero)", "completion": ""}
+{"prompt": "if ContactedBodyEntity.Name == \"SnowBody\" and self.Entity.WeldJointComponent:GetJointsCount() == 0 then\nself:Connect(ContactedBodyEntity)\nend", "completion": ""}

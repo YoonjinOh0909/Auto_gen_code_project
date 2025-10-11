@@ -1,0 +1,4 @@
+{"prompt": "local showWinner = function()\nlocal winners = _EntityService:GetEntitiesByTag(\"Qualified\")\nfor i = 1, #winners do\nlocal nametag = winners[i].NameTagComponent\nnametag.FontColor = Color.green\nnametag.FontSize = 4\nnametag.Name = \"★ Qualified ★\"\nend\nend", "completion": ""}
+{"prompt": "_TimerService:SetTimerOnce(showWinner, 10.0)", "completion": ""}
+{"prompt": "if TriggerBodyEntity.PlayerComponent == nil then", "completion": "return\nend"}
+{"prompt": "TriggerBodyEntity.TagComponent:AddTag(\"Qualified\")", "completion": ""}

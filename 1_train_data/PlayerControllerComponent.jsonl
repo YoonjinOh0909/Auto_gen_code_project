@@ -1,0 +1,4 @@
+{"prompt": "self.Entity.PlayerControllerComponent:SetActionKey(KeyboardKey.B, \"Attack\")", "completion": ""}
+{"prompt": "self.Entity.PlayerControllerComponent:SetActionKey(KeyboardKey.N, \"Jump\")", "completion": ""}
+{"prompt": "self.Entity.PlayerControllerComponent:SetActionKey(KeyboardKey.G, \"MyPlayerAction\")", "completion": ""}
+{"prompt": "log(ActionName)", "completion": ""}

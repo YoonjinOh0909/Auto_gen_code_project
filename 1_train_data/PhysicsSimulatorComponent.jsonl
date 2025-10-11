@@ -1,0 +1,2 @@
+{"prompt": "if key == KeyboardKey.P then", "completion": "self.Entity.CurrentMap.PhysicsSimulatorComponent.Paused = not self.Entity.CurrentMap.PhysicsSimulatorComponent.Paused"}
+{"prompt": "elseif key == KeyboardKey.G then", "completion": "self.Entity.CurrentMap.PhysicsSimulatorComponent.Gravity = Vector2(0, 0)\nend"}

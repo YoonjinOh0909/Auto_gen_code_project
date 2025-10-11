@@ -1,0 +1,3 @@
+{"prompt": "local tween =self.Entity.TweenCircularComponent\ntween.Degree = 0", "completion": ""}
+{"prompt": "tween.Radius = 2", "completion": ""}
+{"prompt": "tween.Speed = 180", "completion": ""}

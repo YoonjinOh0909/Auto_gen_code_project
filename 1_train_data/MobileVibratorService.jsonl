@@ -1,0 +1,1 @@
+{"prompt": "if _MobileVibratorService:IsHWSupported() then\n\t_MobileVibratorService:Vibrate()\nend", "completion": ""}

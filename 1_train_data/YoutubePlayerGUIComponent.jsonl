@@ -1,0 +1,6 @@
+{"prompt": "[None]\nYoutubePlayerGUIComponent youtubePlayer = nil", "completion": ""}
+{"prompt": "self.youtubePlayer = self.Entity.YoutubePlayerGUIComponent\nself.youtubePlayer.Urls = {\"Http://WebUrl\"}", "completion": ""}
+{"prompt": "if key == KeyboardKey.Alpha1 then\nself.youtubePlayer:Play()", "completion": ""}
+{"prompt": "elseif key == KeyboardKey.Alpha2 then\nself.youtubePlayer:Pause()", "completion": ""}
+{"prompt": "elseif key == KeyboardKey.Alpha3 then\nself.youtubePlayer:Jump(20)", "completion": ""}
+{"prompt": "elseif key == KeyboardKey.Alpha4 then\nself.youtubePlayer:PlayPause()\nend", "completion": ""}

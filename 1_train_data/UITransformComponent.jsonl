@@ -1,0 +1,6 @@
+{"prompt": "[None]\nnumber offset = 0", "completion": ""}
+{"prompt": "[None]\nnumber dir = 1.0", "completion": ""}
+{"prompt": "local offsetPerDelta = delta * 100.0 * self.dir\nself.offset = self.offset + offsetPerDelta", "completion": ""}
+{"prompt": "if self.dir > 0 and self.offset >= 100 then\nself.dir = -1.0\nelseif self.dir < 0 and self.offset <= 0 then\nself.dir = 1.0\nend", "completion": ""}
+{"prompt": "local uiTransform = self.Entity.UITransformComponent\nif uiTransform then\nif uiTransform.AlignmentOption ~= AlignmentType.StretchAll then\nuiTransform.AlignmentOption = AlignmentType.StretchAll\nuiTransform.anchoredPosition = Vector2.zero\nuiTransform.OffsetMax = Vector2.zero\nuiTransform.OffsetMin = Vector2.zero\nend\nuiTransform.OffsetMin = Vector2(self.offset, self.offset)\nuiTransform.OffsetMax = Vector2(-self.offset, -self.offset)\nend", "completion": ""}
+{"prompt": "local guiRenderer = self.Entity.SpriteGUIRendererComponent\nif guiRenderer then\nif self.dir > 0 then\nguiRenderer.Color = Color.red\nelseif self.dir < 0 then\nguiRenderer.Color = Color.green\nelse\nguiRenderer.Color = Color.white\nend\nend", "completion": ""}

@@ -1,0 +1,3 @@
+{"prompt": "if _UserService.LocalPlayer ~= self.Entity then", "completion": "return\nend"}
+{"prompt": "local kinematicbody = self.Entity.KinematicbodyComponent", "completion": ""}
+{"prompt": "local isOnGround = kinematicbody:IsOnGround()", "completion": "kinematicbody.EnableTileCollision = isOnGround"}

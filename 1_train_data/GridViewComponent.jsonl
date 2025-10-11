@@ -1,0 +1,9 @@
+{"prompt": "[None]\nGridViewComponent Inventory = nil", "completion": ""}
+{"prompt": "[None]\nEntity InventorySlot = nil", "completion": ""}
+{"prompt": "self.Inventory.ItemEntity = self.InventorySlot", "completion": ""}
+{"prompt": "self.Inventory.OnRefresh = self.OnRefresh", "completion": ""}
+{"prompt": "self.Inventory.OnClear = self.OnClear", "completion": ""}
+{"prompt": "self.Inventory.TotalCount = 10", "completion": ""}
+{"prompt": "self.Inventory:Refresh()", "completion": ""}
+{"prompt": "entity:GetChildByName(\"Name\").TextComponent.Text = tostring(index)", "completion": ""}
+{"prompt": "entity:GetChildByName(\"Name\").TextComponent.Text = \"\"", "completion": ""}

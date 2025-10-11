@@ -1,0 +1,2 @@
+{"prompt": "local zoom = function()", "completion": "self.Entity.CameraComponent:SetZoomTo(300, 2)\nend"}
+{"prompt": "_TimerService:SetTimerOnce(zoom, 4)", "completion": ""}

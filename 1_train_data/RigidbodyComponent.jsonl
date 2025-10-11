@@ -1,0 +1,8 @@
+{"prompt": "[Sync]\nnumber time = 0", "completion": ""}
+{"prompt": "[Sync]\nboolean isAttached = false", "completion": ""}
+{"prompt": "self.Entity.RigidbodyComponent:AttachTo(entityId, Vector3.zero)\nself.isAttached = true", "completion": ""}
+{"prompt": "if self.isAttached == false then", "completion": "return\nend"}
+{"prompt": "self.time = self.time + delta", "completion": ""}
+{"prompt": "if self.time >= 3.0 then", "completion": "self.Entity.RigidbodyComponent:Detach()\nself.time = 0\nself.isAttached = false\nend"}
+{"prompt": "if TriggerBodyEntity.Name == \"Name\" then", "completion": "self:AttachTo(TriggerBodyEntity.Id)\nend"}
+{"prompt": "local entity = _EntityService:GetEntityByPath(EntityPath)", "completion": "if self.Entity.RigidbodyComponent:PredictFootholdEnd(10, true) then\nentity.Enable = true\nelse\nentity.Enable = false\nend"}

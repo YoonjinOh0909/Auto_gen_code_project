@@ -1,0 +1,11 @@
+{"prompt": "[Sync]\nnumber Health = 1000", "completion": ""}
+{"prompt": "[None]\nnumber InitialHealth = 0", "completion": ""}
+{"prompt": "[None]\nVector2 InitialBoxSize = Vector2(0,0)", "completion": ""}
+{"prompt": "self.InitialHealth = self.Health\nself.InitialBoxSize = self.Entity.HitComponent.BoxSize:Clone()", "completion": ""}
+{"prompt": "local hitComponent = self.Entity.HitComponent", "completion": ""}
+{"prompt": "self.Health = self.Health - TotalDamage\nself.Health = math.max(self.Health, 0.0)", "completion": ""}
+{"prompt": "if self.Health > 0.0 then", "completion": "local ratio = 10 - ((10 - 1) / self.InitialHealth) * self.Health\nhitComponent.BoxSize = self.InitialBoxSize * ratio"}
+{"prompt": "else", "completion": "_EntityService:Destroy(self.Entity)\nend"}
+{"prompt": "[None]\nnumber ImmuneCooldown = 1", "completion": ""}
+{"prompt": "[None]\nnumber LastHitTime = 0", "completion": ""}
+{"prompt": "override boolean IsHitTarget()", "completion": "local currentTime = _UtilLogic.ElapsedSeconds\nif self.LastHitTime + self.ImmuneCooldown < currentTime then\nself.LastHitTime = _UtilLogic.ElapsedSeconds\nreturn true\nend\n\nreturn false"}

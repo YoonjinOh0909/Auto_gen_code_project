@@ -1,0 +1,8 @@
+{"prompt": "[None]\nstring Id = \"\"", "completion": ""}
+{"prompt": "[None]\nstring Password = \"\"", "completion": ""}
+{"prompt": "[None]\nTextInputComponent IdInput = EntityPath", "completion": ""}
+{"prompt": "[None]\nTextInputComponent PasswordInput = EntityPath", "completion": ""}
+{"prompt": "self.IdInput.Text = \"\"\nself.IdInput.PlaceHolder = \"Id 입력\"", "completion": ""}
+{"prompt": "self.PasswordInput.Text = \"\"\nself.PasswordInput.PlaceHolder = \"패스워드 입력\"\nself.PasswordInput.ContentType = InputContentType.Password", "completion": ""}
+{"prompt": "log(\"입력된 아이디는 \" .. self.InputId .. \"입니다.\")", "completion": ""}
+{"prompt": "self.Password = text\nlog(\"입력된 패스워드는 \" .. self.Password .. \"입니다.\")", "completion": ""}

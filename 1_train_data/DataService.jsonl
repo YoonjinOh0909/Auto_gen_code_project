@@ -1,0 +1,7 @@
+{"prompt": "log(_DataService:GetRowCount(\"SampleDataSet\"))", "completion": "log(_DataService:GetCell(\"SampleDataSet\", 3, 3))"}
+{"prompt": "log(_DataService:GetCell(\"SampleDataSet\", 3, 3))", "completion": "log(_DataService:GetCell(\"SampleDataSet\", 2, \"name\"))"}
+{"prompt": "log(_DataService:GetCell(\"SampleDataSet\", 2, \"name\"))", "completion": "local dataSet = _DataService:GetTable(\"SampleDataSet\")"}
+{"prompt": "local dataSet = _DataService:GetTable(\"SampleDataSet\")", "completion": "log(dataSet:GetRowCount())"}
+{"prompt": "log(dataSet:GetRowCount())", "completion": "log(dataSet:GetCell(1, 1))"}
+{"prompt": "log(dataSet:GetCell(1, 1))", "completion": "log(dataSet:GetCell(2, \"level\"))"}
+{"prompt": "log(dataSet:GetCell(2, \"level\"))", "completion": "for i = 1, dataSet:GetRowCount() do\n    log(dataSet:GetCell(i, \"name\"), dataSet:GetCell(i, \"level\"), dataSet:GetCell(i, \"hp\"))\nend"}

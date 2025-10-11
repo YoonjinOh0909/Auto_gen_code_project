@@ -1,0 +1,5 @@
+{"prompt": "[None]\nWebSpriteComponent webSprite = nil", "completion": ""}
+{"prompt": "self.webSprite = self.Entity.WebSpriteComponent", "completion": ""}
+{"prompt": "self.webSprite.Url = \"Http://WebUrl\"", "completion": ""}
+{"prompt": "self.webSprite.Color = Color(1.0, 1.0, 1.0, 0.0)", "completion": ""}
+{"prompt": "local alpha = self.webSprite.Color.a\nself.webSprite.Color = Color(1.0, 1.0, 1.0, alpha + delta / 5.0)", "completion": ""}

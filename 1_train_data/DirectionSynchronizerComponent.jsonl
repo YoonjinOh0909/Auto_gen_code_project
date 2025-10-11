@@ -1,0 +1,2 @@
+{"prompt": "local modelId = \"Model Entry ID\"", "completion": "local attachedEntity = _SpawnService:SpawnByModelId(modelId, \"attachedEntity\", Vector3.zero, self.Entity, \"\")"}
+{"prompt": "attachedEntity:AddComponent(\"DirectionSynchronizerComponent\")", "completion": ""}

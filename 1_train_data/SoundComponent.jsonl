@@ -1,0 +1,4 @@
+{"prompt": "self.Entity.SoundComponent.AudioClipRUID = \"000000\"", "completion": ""}
+{"prompt": "self.Entity.SoundComponent.Loop = true", "completion": ""}
+{"prompt": "self.Entity.SoundComponent:SetListenerEntity(_UserService.LocalPlayer)", "completion": ""}
+{"prompt": "self.Entity.SoundComponent:Play()", "completion": ""}

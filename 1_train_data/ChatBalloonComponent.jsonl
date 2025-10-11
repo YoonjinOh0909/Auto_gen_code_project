@@ -1,0 +1,4 @@
+{"prompt": "local chatBalloon = self.Entity.ChatBalloonComponent", "completion": ""}
+{"prompt": "local npcTalks = {}", "completion": "table.insert(npcTalks, \"NPC Talk 1\")\ntable.insert(npcTalks, \"NPC Talk 2\")\ntable.insert(npcTalks, \"NPC Talk 3\")\ntable.insert(npcTalks, \"NPC Talk 4\")"}
+{"prompt": "local setMessage = function()", "completion": "local idx = _UtilLogic:RandomIntegerRange(1, #npcTalks)\nchatBalloon.Message = npcTalks[idx]\nend"}
+{"prompt": "local interval = chatBalloon.ShowDuration + chatBalloon.HideDuration", "completion": "_TimerService:SetTimerRepeat(setMessage, interval)"}

@@ -1,0 +1,4 @@
+{"prompt": "local tween = self.Entity.TweenFloatingComponent", "completion": ""}
+{"prompt": "tween.Amplitude = 0.1", "completion": ""}
+{"prompt": "tween.OneCycleTime = 1", "completion": ""}
+{"prompt": "tween.TweenType = EaseType.QuadEaseInOut", "completion": ""}

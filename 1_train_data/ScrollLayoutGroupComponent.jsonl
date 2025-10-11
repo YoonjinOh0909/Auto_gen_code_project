@@ -1,0 +1,6 @@
+{"prompt": "[None]\nEntity ItemEntity = \"nil\"", "completion": ""}
+{"prompt": "[None]\nnumber InitItemCount = 0", "completion": ""}
+{"prompt": "self.ItemEntity = self.Entity:GetChildByName(\"Scroll_Image\")\nself.InitItemCount = 10", "completion": "self:Init()"}
+{"prompt": "if not self.ItemEntity then", "completion": "return\nend"}
+{"prompt": "local scrollLayoutComp = self.Entity.ScrollLayoutGroupComponent\nif scrollLayoutComp then", "completion": "scrollLayoutComp.CellSize = Vector2(200, 200)\nscrollLayoutComp.Constraint = GridLayoutConstraint.FixedColumnCount\nscrollLayoutComp.ConstraintCount = 1\nend"}
+{"prompt": "for i = 0, self.InitItemCount, 1 do", "completion": "local itemslot = _SpawnService:Clone(\"Item\", self.ItemEntity, self.Entity)\nend"}

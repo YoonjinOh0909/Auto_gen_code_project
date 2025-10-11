@@ -1,0 +1,3 @@
+{"prompt": "self.Entity.PhysicsRigidbodyComponent:Sleep()", "completion": ""}
+{"prompt": "self.Entity.SpriteRendererComponent.SpriteRUID = \"000000\"", "completion": "self.Entity.PhysicsColliderComponent.CollisionGroup = CollisionGroups.Monster"}
+{"prompt": "if key == KeyboardKey.P then", "completion": "self:Change()\nend"}

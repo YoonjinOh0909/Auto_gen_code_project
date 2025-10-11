@@ -1,0 +1,4 @@
+{"prompt": "self:SetShouldShowServerLog(true)\nself:LogClient()\nself:LogServer()\nself:SetShouldShowServerLog(false)\nself:LogClient()\nself:LogServer()", "completion": ""}
+{"prompt": "log(\"log server\")\nlog_warning(\"log_warning server\")\nlog_error(\"log_error server\")", "completion": ""}
+{"prompt": "log(\"log client\")\nlog_warning(\"log_warning client\")\nlog_error(\"log_error client\")", "completion": ""}
+{"prompt": "_LogService:SetShouldShowServerLog(shouldShowLog)", "completion": ""}

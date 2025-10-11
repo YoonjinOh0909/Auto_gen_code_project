@@ -1,0 +1,1 @@
+{"prompt": "local modelId = _EntryService:GetModelIdByName(\"NewModel\")", "completion": "if modelId ~= nil then \n    _SpawnService:SpawnByModelId(modelId , \"NewEntity\" , Vector3.zero , self.Entity)   \nend"}

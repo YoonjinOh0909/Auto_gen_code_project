@@ -1,0 +1,6 @@
+{"prompt": "if self:IsClient() then", "completion": "return\nend"}
+{"prompt": "local effectRoot = _EntityService:GetEntityByPath(EntityPath)", "completion": "effectRoot.Enable = true"}
+{"prompt": "if self:IsClient() then", "completion": "return\nend"}
+{"prompt": "local effectRoot = _EntityService:GetEntityByPath(EntityPath)", "completion": "effectRoot.Enable = false"}
+{"prompt": "if self:IsServer() then", "completion": "return\nend"}
+{"prompt": "InteractionEntity.MovementComponent.InputSpeed = 3", "completion": ""}

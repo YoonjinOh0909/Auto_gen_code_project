@@ -1,0 +1,6 @@
+{"prompt": "[None]\nVector2 Gravity = Vector2(0,-9.8)", "completion": ""}
+{"prompt": "[Sync]\nVector2 CurrentVelocity = Vector2(0,0)", "completion": ""}
+{"prompt": "local transform = self.Entity.TransformComponent", "completion": ""}
+{"prompt": "self.CurrentVelocity = self.CurrentVelocity + (self.Gravity * delta)", "completion": ""}
+{"prompt": "local deltaX = self.CurrentVelocity.x * delta\nlocal deltaY = self.CurrentVelocity.y * delta", "completion": ""}
+{"prompt": "transform:Translate(deltaX, deltaY)", "completion": ""}

@@ -1,0 +1,8 @@
+{"prompt": "[None]\ntable<string> HitAnimations", "completion": ""}
+{"prompt": "table.insert(self.HitAnimations, \"000000\")", "completion": ""}
+{"prompt": "table.insert(self.HitAnimations, \"000000\")", "completion": ""}
+{"prompt": "table.insert(self.HitAnimations, \"000000\")", "completion": ""}
+{"prompt": "table.insert(self.HitAnimations, \"000000\")", "completion": ""}
+{"prompt": "self:SetActionSheet(\"hit\", self.HitAnimations[_UtilLogic:RandomIntegerRange(1, #self.HitAnimations)])", "completion": ""}
+{"prompt": "if stateName == \"HIT\" then", "completion": "self:SetRandomHitAnimation()\nend"}
+{"prompt": "return __base:StateStringToAnimationKey(stateName)", "completion": ""}

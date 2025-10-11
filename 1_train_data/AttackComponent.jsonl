@@ -1,0 +1,7 @@
+{"prompt": "local attackSize = Vector2(1,1)\nlocal playerController = self.Entity.PlayerControllerComponent", "completion": ""}
+{"prompt": "if playerController ~= nil then", "completion": "local attackOffset = Vector2(0.5 * playerController.LookDirectionX, 0.5)\nself:Attack(attackSize, attackOffset, nil, CollisionGroups.Monster)\nend"}
+{"prompt": "override int CalcDamage (Entity attacker,Entity defender,string attackInfo)", "completion": "return 50"}
+{"prompt": "override boolean CalcCritical (Entity attacker,Entity defender,string attackInfo)", "completion": "return _UtilLogic:RandomDouble() < 0.3"}
+{"prompt": "override number GetCriticalDamageRate ()", "completion": "return 2"}
+{"prompt": "if self:IsClient() then return end", "completion": ""}
+{"prompt": "if ActionName == \"Attack\" then", "completion": "self:AttackNormal()\nend"}

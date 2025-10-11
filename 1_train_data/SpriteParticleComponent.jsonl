@@ -1,0 +1,5 @@
+{"prompt": "[Sync]\nSpriteParticleComponent SpriteParticle = nil", "completion": ""}
+{"prompt": "self.SpriteParticle = self.Entity.SpriteParticleComponent", "completion": ""}
+{"prompt": "self.SpriteParticle.SpriteRUID = \"000000\"", "completion": "self.SpriteParticle.ApplySpriteColor = true"}
+{"prompt": "if key == KeyboardKey.Q then", "completion": "self.SpriteParticle:Stop()"}
+{"prompt": "elseif key == KeyboardKey.E then", "completion": "self.SpriteParticle:Play()\nend"}

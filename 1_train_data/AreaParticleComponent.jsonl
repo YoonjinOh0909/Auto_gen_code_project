@@ -1,0 +1,6 @@
+{"prompt": "[Sync]\nAreaParticleComponent ParticleComponent = nil", "completion": ""}
+{"prompt": "self.ParticleComponent = self.Entity.AreaParticleComponent", "completion": ""}
+{"prompt": "self.ParticleComponent.AreaSize.x = _UtilLogic:RandomDouble() * 2", "completion": ""}
+{"prompt": "self.ParticleComponent.ParticleCount = 2", "completion": ""}
+{"prompt": "if key == KeyboardKey.Q then", "completion": "self.ParticleComponent:Stop()"}
+{"prompt": "elseif key == KeyboardKey.E then", "completion": "self.ParticleComponent:Play()\nend"}

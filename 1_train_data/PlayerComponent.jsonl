@@ -1,0 +1,3 @@
+{"prompt": "local player = self.Entity.PlayerComponent", "completion": ""}
+{"prompt": "if TriggerBodyEntity.Name == \"Check Point\" then", "completion": "player.RespawnPosition = TriggerBodyEntity.TransformComponent.Position"}
+{"prompt": "elseif TriggerBodyEntity.Name == \"Do Not Touch\" then", "completion": "self.Entity.PlayerComponent:ProcessDead()\nend"}

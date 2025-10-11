@@ -1,0 +1,3 @@
+{"prompt": "integer TimerId = 0", "completion": ""}
+{"prompt": "void OnBeginPlay\n{", "completion": "\tlocal repeatFunc = function()\n\t\tlocal transform = self.Entity.TransformComponent\n\t\tlocal zRot = transform.ZRotation\n\t\ttransform.ZRotation = zRot - (360.0 / 60.0)\n\tend\n\tself.TimerId = _TimerService:SetTimerRepeat(repeatFunc,1.0)\n\tif self.TimerId == 0 then\n\t\tlog_error(\"Timer reservation failed.\")\n\tend\n}"}
+{"prompt": "void OnEndPlay()\n{", "completion": "\tif self.TimerId > 0 then\n\t\t_TimerService:ClearTimer(self.TimerId)\n\tend\n}"}

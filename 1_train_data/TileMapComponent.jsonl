@@ -1,0 +1,3 @@
+{"prompt": "local tileMap = _EntityService:GetEntityByPath(\"/maps/map01/TileMap\")\ntileMap.TileMapComponent.Color = color", "completion": ""}
+{"prompt": "if TriggerBodyEntity.Name == \"Name\" then", "completion": "self:SetColor(Color.red)\nend"}
+{"prompt": "self:SetColor(Color.white)", "completion": ""}

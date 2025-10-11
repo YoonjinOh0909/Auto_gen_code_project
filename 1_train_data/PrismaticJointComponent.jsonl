@@ -1,0 +1,4 @@
+{"prompt": "self.Entity.PrismaticJointComponent:SetMotorSpeed(1, 3)", "completion": ""}
+{"prompt": "self.Entity.PrismaticJointComponent:SetMotorSpeed(1, -3)", "completion": ""}
+{"prompt": "if key == KeyboardKey.W then", "completion": "self:GoUp()"}
+{"prompt": "elseif key == KeyboardKey.S then", "completion": "self:GoDown()\nend"}

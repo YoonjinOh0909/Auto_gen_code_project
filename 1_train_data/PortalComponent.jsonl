@@ -1,0 +1,5 @@
+{"prompt": "self._T.portalRefList = {}", "completion": ""}
+{"prompt": "local function findAndAddPortal(parent)", "completion": "if parent.PortalComponent ~= nil and parent ~= self.Entity then\ntable.insert(self._T.portalRefList, EntityRef(parent))\nend\nif parent.Children ~= nil then\nfor i, k in ipairs(parent.Children) do\nfindAndAddPortal(k)\nend\nend\nend"}
+{"prompt": "findAndAddPortal(self.Entity.CurrentMap)", "completion": ""}
+{"prompt": "if #self._T.portalRefList < 1 then", "completion": "return\nend"}
+{"prompt": "_TimerService:SetTimerRepeat(function()\nself.Entity.PortalComponent.PortalEntityRef = self._T.portalRefList[_UtilLogic:RandomIntegerRange(1, #self._T.portalRefList)]\nend, 1)", "completion": ""}

@@ -1,0 +1,2 @@
+{"prompt": "local error, fullPath = _ScreenshotService:CaptureFullScreenAsFileAndWait(\"Screenshot\")", "completion": "if error == ScreenshotError.Success then\n\tlog (\"저장되었습니다. \" .. fullPath)\nend"}
+{"prompt": "local startPixel = Vector2(100, 100)\nlocal endPixel = Vector2(900, 900)\nlocal error, fullPath = _ScreenshotService:CaptureScreenRegionAsFileAndWait(\"Screenshot\", startPixel, endPixel)", "completion": "if error == ScreenshotError.Success then\n\tlog (\"저장되었습니다. \" .. fullPath)\nend"}

@@ -1,0 +1,5 @@
+{"prompt": "self:DrawCircle(2, 20, Color.red, 1)", "completion": ""}
+{"prompt": "if vertexNum < 3 then", "completion": "log_error (\"The 'vertexNum' should be greater than or equal to 3.\")\nreturn\nend"}
+{"prompt": "local lineRenderer = self.Entity.LineRendererComponent\nlineRenderer.Points:Clear()\nlineRenderer.Loop = true", "completion": ""}
+{"prompt": "local delta = 360 / vertexNum", "completion": ""}
+{"prompt": "for i = 0, vertexNum - 1 do", "completion": "local theta = math.rad(90 + delta * i)\nlocal position = Vector2(math.cos(theta), math.sin(theta)) * radius\nlocal point = LinePoint(position, color, width)\nlineRenderer.Points:Add(point)\nend"}

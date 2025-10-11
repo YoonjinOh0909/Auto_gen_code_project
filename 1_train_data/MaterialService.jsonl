@@ -1,0 +1,2 @@
+{"prompt": "self.materialId = _EntryService:GetMaterialIdByName(\"TestMaterial\")", "completion": ""}
+{"prompt": "local playerWorldPosition = _UserService.LocalPlayer.TransformComponent.WorldPosition\nlocal targetScreenPos = _UILogic:WorldToScreenPosition(Vector2(playerWorldPosition.x, playerWorldPosition.y))\ntargetScreenPos.x = targetScreenPos.x / _UILogic.ScreenWidth\ntargetScreenPos.y = targetScreenPos.y / _UILogic.ScreenHeight\nlocal options = {[\"CenterPos\"] = targetScreenPos}\n_MaterialService:ChangeMaterialProperty(self.materialId, options)", "completion": ""}

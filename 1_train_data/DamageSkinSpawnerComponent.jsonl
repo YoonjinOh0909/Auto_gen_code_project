@@ -1,0 +1,6 @@
+{"prompt": "local damageSkinSpawnerComponent = self.Entity.DamageSkinSpawnerComponent\nif damageSkinSpawnerComponent == nil then", "completion": "return\nend"}
+{"prompt": "local transformComponent = self.Entity.TransformComponent\nif transformComponent == nil then", "completion": "return\nend"}
+{"prompt": "local hitComponent = self.Entity.HitComponent\nif hitComponent == nil then", "completion": "return\nend"}
+{"prompt": "local weight = self.Entity.TransformComponent.Scale:ToVector2()", "completion": ""}
+{"prompt": "local hitBoxOffset = hitComponent.ColliderOffset * weight\nlocal hitBoxSize = hitComponent.BoxSize * weight", "completion": "local damageOffset = Vector2(hitBoxOffset.x, hitBoxOffset.y + hitBoxSize.y / 2)"}
+{"prompt": "damageSkinSpawnerComponent.DamageSkinOffset = damageOffset", "completion": ""}
