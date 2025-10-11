@@ -1,3 +1,4 @@
 .env
 capture
 __pycache__/
+tree.txt
