@@ -1,0 +1,30 @@
+Event Handler:
+[self]
+HandleTriggerEnterEvent (TriggerEnterEvent event)
+{
+	-- Parameters
+	local TriggerBodyEntity = event.TriggerBodyEntity
+	--------------------------------------------------------
+	if self:IsClient() then
+		return
+	end
+	 
+	local inventory = self.Entity.InventoryComponent
+	local items = inventory:GetItemList()
+	 
+	if TriggerBodyEntity.Name == "Get Item" then
+		local newItem = _ItemService:CreateItem(TestItem, "Test Item", inventory)
+		newItem.ItemCount = 3
+	elseif TriggerBodyEntity.Name == "Give Item" then
+		if #items > 0 then
+			items[1].ItemCount = items[1].ItemCount - 1
+			if items[1].ItemCount == 0 then
+				_ItemService:RemoveItem(items[1])
+			end
+		end
+	elseif TriggerBodyEntity.Name == "Trash Can" then
+		if #items > 0 then
+			_ItemService:RemoveItem(items[1])
+		end
+	end
+}

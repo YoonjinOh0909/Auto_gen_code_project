@@ -1,0 +1,52 @@
+Property:
+[None]
+table Puzzle = {}
+[None]
+PixelGUIRendererComponent PixelGUIRendererComp
+[None]
+table PuzzlePos = {}
+
+Method:
+[client only]
+void OnBeginPlay()
+{
+	self.PixelGUIRendererComp = self.Entity.PixelGUIRendererComponent
+	self.PixelGUIRendererComp:FillColor(Color.black)
+	  
+	for i=1, 9 do
+		local xPos = _UtilLogic:RandomIntegerRange(1, self.PixelGUIRendererComp.Width)
+		local yPos = _UtilLogic:RandomIntegerRange(1, self.PixelGUIRendererComp.Height)
+		self.Puzzles[i] = Vector2(xPos, yPos)
+	end
+}
+
+[client only]
+void StartPuzzle(number index)
+{
+	if index > #self.Puzzles then 
+		return 
+	end
+	  
+	self.PixelGUIRendererComp:SetPixel(self.Puzzles[index].x, self.Puzzles[index].y, Color.yellow)
+	wait(0.35)
+	self.PixelGUIRendererComp:SetPixel(self.Puzzles[index].x, self.Puzzles[index].y, Color.black)
+	wait(0.1)
+	self:StartPuzzle(index + 1)
+}
+
+EventHandler:
+[service: InputService]
+HandleKeyDownEvent(KeyDownEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: InputService
+	-- Space: Client
+	---------------------------------------------------------
+	  
+	-- Parameters
+	local key = event.key
+	---------------------------------------------------------
+	if key == KeyboardKey.F then
+		self:StartPuzzle(1)
+	end
+}

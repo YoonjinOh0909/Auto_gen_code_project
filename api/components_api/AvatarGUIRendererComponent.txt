@@ -1,0 +1,36 @@
+Method:
+[client only]
+void ChangeEmotion (number emotionNumber)
+{
+	if emotionNumber == 1 then
+	    self.Entity.AvatarGUIRendererComponent:PlayEmotion(EmotionalType.Vomit, 5)
+	elseif emotionNumber == 2 then
+	    self.Entity.AvatarGUIRendererComponent:PlayEmotion(EmotionalType.Glitter, 5)
+	elseif emotionNumber == 3 then
+	    self.Entity.AvatarGUIRendererComponent:PlayEmotion(EmotionalType.Hum, 5)
+	elseif emotionNumber == 4 then
+	    self.Entity.AvatarGUIRendererComponent:PlayEmotion(EmotionalType.Love, 5)
+	elseif emotionNumber == 5 then
+	    self.Entity.AvatarGUIRendererComponent:PlayEmotion(EmotionalType.Shine, 5)
+	end
+}
+
+Event Handler:
+[client only] [service: InputService]
+HandleKeyDownEvent (KeyDownEvent event)
+{
+	-- Parameters
+	local key = event.key
+	--------------------------------------------------------
+	if key == KeyboardKey.F1 then
+		self:ChangeEmotion(1)
+	elseif key == KeyboardKey.F2 then
+		self:ChangeEmotion(2)
+	elseif key == KeyboardKey.F3 then
+		self:ChangeEmotion(3)
+	elseif key == KeyboardKey.F4 then
+		self:ChangeEmotion(4)
+	elseif key == KeyboardKey.F5 then
+		self:ChangeEmotion(5)
+	end
+}

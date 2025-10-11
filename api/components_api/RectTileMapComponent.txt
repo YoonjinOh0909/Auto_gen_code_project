@@ -1,0 +1,30 @@
+Method:
+[client only]
+void OnUpdate ()
+{
+	if _UserService.LocalPlayer ~= self.Entity then
+		return
+	end
+	 
+	local transform = self.Entity.TransformComponent
+	local movement = self.Entity.MovementComponent
+	local tilemap = self.Entity.CurrentMap:GetFirstChildComponentByTypeName("RectTileMapComponent")
+	 
+	local worldPos = transform.WorldPosition
+	 
+	-- 월드 공간 좌표를 타일맵 공간 좌표로 변환
+	local cellPos = tilemap:ToCellPosition(worldPos)
+	  
+	-- 현재 위치에 있는 타일 정보 조회
+	local tileInfo = tilemap:GetTile(cellPos)
+	 
+	if tileInfo == nil then
+		return
+	end
+	 
+	if (tileInfo.Name == "Fast Tile") then
+		movement.InputSpeed = 2.4
+	elseif (tileInfo.Name == "Slow Tile") then
+		movement.InputSpeed = 1.2
+	end
+}

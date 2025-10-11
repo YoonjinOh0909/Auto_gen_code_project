@@ -1,0 +1,44 @@
+Property:
+[None]
+number AngularSpeed = 360
+ 
+Method:
+[server only]
+void OnUpdate (number delta)
+{
+	local transform = self.Entity.TransformComponent
+	local zRotation = transform.ZRotation
+
+	transform.ZRotation = zRotation + (self.AngularSpeed * delta)
+}
+Property:
+[None]
+number AngularSpeed = 360
+ 
+Method:
+[server only]
+void OnUpdate (number delta)
+{
+	local transform = self.Entity.TransformComponent
+	 
+	transform:Rotate(self.AngularSpeed * delta)	
+}
+Property:
+[None]
+Vector2 Gravity = Vector2(0,-9.8)
+[Sync]
+Vector2 CurrentVelocity = Vector2(0,0)
+
+Method:
+[server only]
+void OnUpdate (number delta)
+{
+	local transform = self.Entity.TransformComponent
+ 
+	self.CurrentVelocity = self.CurrentVelocity + (self.Gravity * delta)
+ 
+	local deltaX = self.CurrentVelocity.x * delta
+	local deltaY = self.CurrentVelocity.y * delta
+ 
+	transform:Translate(deltaX, deltaY)
+}

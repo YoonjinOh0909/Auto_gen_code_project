@@ -1,0 +1,11 @@
+local target = _EntityService:GetEntityByPath(EntityPath)
+ 
+-- 요소의 값을 수정하면 변경 사항이 발판에 적용되지 않습니다.
+-- target.CustomFootholdComponent.edgeLists[1][1] = Vector2(3, 0)
+ 
+-- 새 List를 만들어 덮어써야 합니다.
+local list = {Vector2(3,0), Vector2(2,3)}
+target.CustomFootholdComponent.edgeLists[1] = list
+local listlist = {{Vector2(0,2), Vector2(3,2)},{Vector2(4,5), Vector2(3,8)}}
+local target = _EntityService:GetEntityByPath(EntityPath)
+target.CustomFootholdComponent.edgeLists = listlist

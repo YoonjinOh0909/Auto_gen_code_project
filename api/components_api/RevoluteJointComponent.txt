@@ -1,0 +1,52 @@
+Method:
+[server]
+void GoUp ( )
+{
+	self.Entity.RevoluteJointComponent:SetMotorSpeed(1, 10)
+}
+
+[server]
+void GoDown ( )
+{
+	self.Entity.RevoluteJointComponent:SetMotorSpeed(1, -10)
+}
+
+[server]
+void Stop ( )
+{
+	self.Entity.RevoluteJointComponent:SetMotorSpeed(1, 0)
+}
+
+
+Event Handler:
+[service: InputService]
+HandleKeyDownEvent (KeyDownEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: InputService
+	-- Space: Client
+	---------------------------------------------------------
+	
+	-- Parameters
+	local key = event.key
+	---------------------------------------------------------
+	if key == KeyboardKey.W then
+		self:GoUp()
+	elseif key == KeyboardKey.S then
+		self:GoDown()
+	end
+}
+
+[service: InputService]
+HandleKeyUpEvent (KeyUpEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: InputService
+	-- Space: Client
+	---------------------------------------------------------
+	
+	-- Parameters
+	local key = event.key
+	---------------------------------------------------------
+	self:Stop()
+}

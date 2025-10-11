@@ -1,0 +1,27 @@
+local processPurchase = function(purchaseInfo)
+	_LogStorageService:LogPurchaseInfo(purchaseInfo, "Item purchase completed")
+	return true
+end
+ 
+_WorldShopService:SetProcessPurchaseCallback(processPurchase)
+local fromDate = DateTime(2023, 11, 25)
+local toDate = DateTime(2023, 11, 30)
+ 
+local onComplete = function(purchaseLogPages)
+
+	while true do
+		local purchaseLogs = purchaseLogPages:GetCurrentPageDatas()
+		         
+		for index, purchaseLog in ipairs(purchaseLogs) do
+			log(purchaseLog)
+		end
+		 
+		if purchaseLogPages.IsLastPage == true then
+			break
+		end
+	 
+		purchaseLogPages:MoveToNextPageAndWait()
+	end
+end
+ 
+_LogStorageService:GetPurchaseLogPagesAsync(fromDate, toDate, onComplete)

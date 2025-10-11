@@ -1,0 +1,27 @@
+Method:
+void SetColor (Color color)
+{
+	local tileMap = _EntityService:GetEntityByPath("/maps/map01/TileMap")
+	tileMap.TileMapComponent.Color = color
+}
+
+Event Handler:
+[self]
+HandleTriggerEnterEvent (TriggerEnterEvent event)
+{
+	-- Parameters
+	local TriggerBodyEntity = event.TriggerBodyEntity
+	--------------------------------------------------------
+	if TriggerBodyEntity.Name == "Name" then
+		self:SetColor(Color.red)
+	end
+}
+
+[self]
+HandleTriggerLeaveEvent (TriggerLeaveEvent event)
+{
+	-- Parameters
+	local TriggerBodyEntity = event.TriggerBodyEntity
+	--------------------------------------------------------
+	self:SetColor(Color.white)
+}

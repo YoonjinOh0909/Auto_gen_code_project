@@ -1,0 +1,38 @@
+Property:
+[None]
+number ForcePower = 100
+
+Method:
+[client only]
+void OnBeginPlay ()
+{
+	if _MobileGyroscopeService:IsHWSupported() then
+		local enabled = _MobileGyroscopeService:StartAndWait()
+		if enabled then
+			 _UIToast:ShowMessage("Gyroscope Started!")
+		else
+			log_error("Failed to start gyroscope")
+		end
+	end
+}
+
+
+void OnUpdate (number delta)
+{
+	if _MobileGyroscopeService:IsEnabled() then
+		-- 기기의 기울기 값을 구합니다.
+		local rotRate = _MobileGyroscopeService:GetRotationRate()
+		local angularVelocity = Vector2(rotRate.x, rotRate.y)
+		-- 기기의 순간 회전 속도를 힘으로 가합니다.
+		self:Impact(angularVelocity)
+	end
+}
+
+
+[server]
+void Impact (Vector dir)
+{
+	if dir.x > 0.2 or dir.y > 0.2 then
+		self.BallEntityRef.PhysicsRigidbodyComponent:ApplyForce(dir * self.ForcePower)   
+	end
+}

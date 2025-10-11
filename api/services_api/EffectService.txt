@@ -1,0 +1,47 @@
+Property:
+[None]
+number EffectSerial = 0
+  
+Event Handler:
+[service: InputService]
+HandleKeyDownEvent (KeyDownEvent event)
+{
+	-- Parameters
+	local key = event.key
+	--------------------------------------------------------
+	if key == KeyboardKey.Space or key == KeyboardKey.LeftAlt then
+		if not self.Entity.RigidbodyComponent:IsOnGround() then
+			local lookDirectionX = self.Entity.PlayerControllerComponent.LookDirectionX
+			self.Entity.RigidbodyComponent:SetForce(Vector2(lookDirectionX * 5, 3))
+		                 
+			local options = { ["FlipX"] = lookDirectionX > 0 }
+			local pos = self.Entity.TransformComponent.Position
+		                 
+			_EffectService:PlayEffect("000000", self.Entity, pos, 0, Vector3.one, false, options)
+			_EffectService:PlayEffect("000000", self.Entity, pos, 0, Vector3.one, false, options)
+		end
+	elseif key == KeyboardKey.Q then
+		self.EffectSerial = _EffectService:PlayEffectAttached("000000", self.Entity, Vector3.zero, 0, Vector3.one, true)
+	end
+}
+ 
+[service: InputService]
+HandleKeyUpEvent (KeyUpEvent event)
+{
+	-- Parameters
+	local key = event.key
+	--------------------------------------------------------
+	if key == KeyboardKey.Q then
+		_EffectService:RemoveEffect(self.EffectSerial)
+		             
+		local pos = self.Entity.TransformComponent.Position
+	
+		_EffectService:PlayEffect("000000", self.Entity, pos + Vector3(-4, 0, 0), 0, Vector3.one)
+		_EffectService:PlayEffect("000000", self.Entity, pos + Vector3(-2, 0, 0), 0, Vector3.one)
+		_EffectService:PlayEffect("000000", self.Entity, pos + Vector3(0, 0, 0), 0, Vector3.one)
+		_EffectService:PlayEffect("000000", self.Entity, pos + Vector3(2, 0, 0), 0, Vector3.one)
+		_EffectService:PlayEffect("000000", self.Entity, pos + Vector3(4, 0, 0), 0, Vector3.one)
+		             
+		_EffectService:PlayEffect("000000", self.Entity, pos, 0, Vector3.one)
+	end
+}

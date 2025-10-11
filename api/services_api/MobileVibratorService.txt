@@ -1,0 +1,17 @@
+Event Handler:
+[entity: (EntityPath)]
+HandleButtonClickEvent (ButtonClickEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: ButtonComponent
+	-- Space: Client
+	---------------------------------------------------------
+	  
+	-- Parameters
+	local Entity = event.Entity
+	---------------------------------------------------------
+	if _MobileVibratorService:IsHWSupported() then
+		-- 기기를 진동시킵니다.
+		_MobileVibratorService:Vibrate()
+	end
+}

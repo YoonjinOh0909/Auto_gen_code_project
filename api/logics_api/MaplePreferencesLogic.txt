@@ -1,0 +1,27 @@
+Method:
+[client only]
+void OnBeginPlay()
+{
+	-- Change player's jump and death sound
+	_MaplePreferencesLogic.JumpSound = "000000"
+	_MaplePreferencesLogic.DeathSound = "000000"
+	
+	-- disable all weapon sound
+	_MaplePreferencesLogic.WeaponBowSound = "";
+	_MaplePreferencesLogic.WeaponCaneSound = "";
+	_MaplePreferencesLogic.WeaponCannonSound = "";
+	_MaplePreferencesLogic.WeaponCrossBowSound = "";
+	_MaplePreferencesLogic.WeaponDualBowSound = "";
+	_MaplePreferencesLogic.WeaponGunSound = "";
+	_MaplePreferencesLogic.WeaponKnuckleSound = "";
+	_MaplePreferencesLogic.WeaponMaceSound = "";
+	_MaplePreferencesLogic.WeaponPoleArmSound = "";
+	_MaplePreferencesLogic.WeaponSpearSound = "";
+	_MaplePreferencesLogic.WeaponSwordBSound = "";
+	_MaplePreferencesLogic.WeaponSwordKSound = "";
+	_MaplePreferencesLogic.WeaponSwordLSound= "";
+	_MaplePreferencesLogic.WeaponSwordSSound = "";
+	_MaplePreferencesLogic.WeaponSwordZBSound = "";
+	_MaplePreferencesLogic.WeaponSwordZLSound = "";
+	_MaplePreferencesLogic.WeaponTGloveSound = "";
+}

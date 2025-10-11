@@ -1,0 +1,57 @@
+Property:
+[Sync]
+number time = 0
+[Sync]
+boolean isAttached = false
+
+Method:
+[client]
+void AttachTo (string entityId)
+{
+	self.Entity.RigidbodyComponent:AttachTo(entityId, Vector3.zero)
+	self.isAttached = true
+}
+
+[client only]
+void OnUpdate (number delta)
+{
+	if self.isAttached == false then
+		return
+	end
+	 
+	self.time = self.time + delta
+	 
+	if self.time >= 3.0 then
+		self.Entity.RigidbodyComponent:Detach()
+		self.time = 0
+		self.isAttached = false
+	end
+}
+
+Event Handler:
+[self]
+HandleTriggerEnterEvent (TriggerEnterEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: TriggerComponent
+	-- Space: Server, Client
+	---------------------------------------------------------
+	
+	-- Parameters
+	local TriggerBodyEntity = event.TriggerBodyEntity
+	---------------------------------------------------------
+	if TriggerBodyEntity.Name == "Name" then
+		self:AttachTo(TriggerBodyEntity.Id)
+	end
+}
+Method:
+[client only]
+void OnUpdate (number delta)
+{
+	local entity = _EntityService:GetEntityByPath(EntityPath)
+	if self.Entity.RigidbodyComponent:PredictFootholdEnd(10, true) then
+		entity.Enable = true
+	else
+		entity.Enable = false
+	end
+}

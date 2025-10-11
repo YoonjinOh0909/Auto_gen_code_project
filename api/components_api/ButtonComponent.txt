@@ -1,0 +1,72 @@
+Property:
+[None]
+boolean IsButtonDown = false
+[None]
+number RedVal = 0
+[None]
+number TimerID = 0
+[None]
+string MonsterRUID = "000000"
+[None]
+string OriginalRUID = ""
+  
+  
+Method:
+[client only]
+void OnBeginPlay ()
+{
+	self.OriginalRUID = self.Entity.SpriteGUIRendererComponent.ImageRUID
+}
+  
+void CancelHoldButton ()
+{
+	_TimerService:ClearTimer(self.TimerID)
+	self.Entity.SpriteGUIRendererComponent.ImageRUID = self.OriginalRUID
+	self.IsButtonDown = false
+	self.RedVal = 0
+}
+  
+Event Handler:
+[self]
+HandleButtonPressedEvent (ButtonPressedEvent event)
+{
+	-- Parameters
+	-------------------------------------------------------
+	if self.IsButtonDown then
+		self:CancelHoldButton()
+	else
+		self.Entity.SpriteGUIRendererComponent.ImageRUID = self.MonsterRUID
+	end
+	
+	self.IsButtonDown = true
+	
+	local AddMoreRed  = function()
+		if self.RedVal <= 1 then
+			self.RedVal = self.RedVal + 0.2
+			self.Entity.ButtonComponent.Colors.PressedColor = Color(self.RedVal, 0, 0)
+		end
+	end
+	self.TimerID = _TimerService:SetTimerRepeat(AddMoreRed, 0.3)
+}
+  
+[self]
+HandleButtonClickEvent (ButtonClickEvent event)
+{
+	-- Parameters
+	local Entity = event.Entity
+	--------------------------------------------------------
+	self.Entity.SpriteGUIRendererComponent.ImageRUID = self.OriginalRUID
+	self.IsButtonDown = false
+
+}
+  
+[self]
+HandleButtonStateChangeEvent (ButtonStateChangeEvent event)
+{
+	-- Parameters
+	local state = event.state
+	-------------------------------------------------------
+	if state == ButtonState.Released then
+		self:CancelHoldButton()
+	end
+}

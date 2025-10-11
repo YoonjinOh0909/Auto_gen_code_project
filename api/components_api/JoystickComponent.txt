@@ -1,0 +1,17 @@
+Method:
+[client]
+void SetJoystickDownArrow ()
+{
+	local joystick = _EntityService:GetEntityByPath("/ui/DefaultGroup/UIJoystick")
+	joystick.JoystickComponent.DownArrow = KeyboardKey.E
+}
+
+Event Handler:
+[client only] [self]
+HandleTriggerEnterEvent (TriggerEnterEvent event)
+{
+	-- Parameters
+	local TriggerBodyEntity = event.TriggerBodyEntity
+	--------------------------------------------------------
+	self:SetJoystickDownArrow()
+}

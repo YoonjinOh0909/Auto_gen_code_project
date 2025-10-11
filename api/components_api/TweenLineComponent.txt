@@ -1,0 +1,24 @@
+Method:
+[server]
+void StopOrPlay ()
+{
+	local tween = self.Entity.TweenLineComponent
+	 
+	if tween.CurrentState == TweenState.Playing then
+		tween:Pause()
+	else
+		tween:Play()
+	end
+}
+
+Event Handler:
+[service: InputService]
+HandleKeyDownEvent (KeyDownEvent event)
+{
+	-- Parameters
+	local key = event.key
+	--------------------------------------------------------
+	if key == KeyboardKey.Q then
+		self:StopOrPlay()
+	end
+}

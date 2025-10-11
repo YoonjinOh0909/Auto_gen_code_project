@@ -1,0 +1,42 @@
+Method:
+[server only]
+void OnBeginPlay ()
+{
+	_TweenLogic:MoveOffset(self.Entity, Vector2(6,0), 6, EaseType.QuartEaseIn)
+}
+Method:
+[server only]
+void OnBeginPlay ()
+{
+	local originalPosition = self.Entity.TransformComponent.Position
+	local tweenCallback = function (tweenValue)
+		self.Entity.TransformComponent.Position = originalPosition + tweenValue:ToVector3()
+	end
+	_TweenLogic:PlayTween(Vector2(0,0), Vector2(6,0), 6, EaseType.QuartEaseIn, tweenCallback)
+}
+Method:
+[server only]
+OnBeginPlay ()
+{
+	self._T.originalPosition = self.Entity.TransformComponent.Position
+	self._T.elapsedTime = 0
+	self._T.tweenDuration = 6
+	self._T.isTweening = true
+}
+	
+[server only]
+void OnUpdate (number delta)
+{
+	if not self._T.isTweening then
+		return
+	end
+	
+	self._T.elapsedTime = self._T.elapsedTime + delta
+	if self._T.elapsedTime > self._T.tweenDuration then
+		self._T.elapsedTime = self._T.tweenDuration
+		self._T.isTweening = false
+	end
+	
+	local vectorX = _TweenLogic:Ease(0, 6, self._T.tweenDuration, EaseType.QuartEaseIn, self._T.elapsedTime)
+	self.Entity.TransformComponent.Position = self._T.originalPosition + Vector3(vectorX, 0, 0)
+}

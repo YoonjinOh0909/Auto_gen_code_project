@@ -1,0 +1,15 @@
+Event Handler:
+[self]
+HandleTriggerEnterEvent (TriggerEnterEvent event)
+{
+	--Parameters
+	local TriggerBodyEntity = event.TriggerBodyEntity
+	--------------------------------------------------------
+	if self:IsServer() == true then
+	    return
+	end
+	     
+	local costumeManager = TriggerBodyEntity.CostumeManagerComponent
+	costumeManager:SetEquip(MapleAvatarItemCategory.Hair, "000000")
+	log (costumeManager:GetEquip(MapleAvatarItemCategory.Hair))
+}

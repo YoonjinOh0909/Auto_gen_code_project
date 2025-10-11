@@ -1,0 +1,38 @@
+Method:
+[clinet only]
+void OnBeginPlay()
+{
+	-- 현재 언어 설정에 해당하는 컬럼의 텍스트를 가져옵니다.
+	local plainText = _LocalizationService:GetText("TEXT_TEST1")
+	 
+	-- 영어(en) 컬럼을 조회하는 Translator.
+	local enTranslator = _LocalizationService:GetTranslatorForLocale("en")
+	 
+	-- 현재 언어 설정(ko)에 해당하는 컬럼을 조회하는 Translator.
+	local koTranslator = _LocalizationService.LocalTranslator
+	
+	local formatTextEn = enTranslator:GetTextFormat("TEXT_TEST2", "world")
+	local formatTextKo = koTranslator:GetTextFormat("TEXT_TEST2", "세상")
+	local formatTextHpp1 = koTranslator:GetTextFormat("TEXT_TEST3", "세상")
+	local formatTextHpp2 = koTranslator:GetTextFormat("TEXT_TEST3", "세계")
+	local formatTextPlural1 = enTranslator:GetTextFormat("TEXT_TEST4", 1)
+	local formatTextPlural2 = enTranslator:GetTextFormat("TEXT_TEST4", 2)
+	 
+	log("plainText: ", plainText)
+	log("formatText: ", formatTextEn, "/", formatTextKo)
+	log("Hpp format: ", formatTextHpp1, "/", formatTextHpp2)
+	log("Plural format: ", formatTextPlural1, "/", formatTextPlural2)
+	 
+	-- 현재 언어 설정(ko)을 따라 문자열에 값을 채워 넣습니다.
+	log(_LocalizationService:SmartFormat("안녕, {0:hpp:{}아|{}야}!", "친구"))
+	log(_LocalizationService:SmartFormat("안녕, {0}{0:hpp:아|야}!", "세상"))
+	 
+	-- Result --
+	-- plainText:   Hello
+	-- formatText:  Hello, world!   /   안녕, 세상!
+	-- Hpp format:  안녕, 세상아!    /   안녕, 세계야!
+	-- Plural format:   I have an apple.    /   I have 2 apples.
+	 
+	-- 안녕, 친구야!
+	-- 안녕, 세상아!
+}

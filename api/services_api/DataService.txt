@@ -1,0 +1,21 @@
+Method:
+[server only]
+void OnBeginPlay ()
+{
+	log(_DataService:GetRowCount("SampleDataSet")) -- 3
+	log(_DataService:GetCell("SampleDataSet", 3, 3)) -- 150
+	log(_DataService:GetCell("SampleDataSet", 2, "name")) -- mod2
+	 
+	local dataSet = _DataService:GetTable("SampleDataSet")
+	log(dataSet:GetRowCount()) -- 3
+	log(dataSet:GetCell(1, 1)) -- mod1
+	log(dataSet:GetCell(2, "level")) -- 2
+	 
+	for i = 1, dataSet:GetRowCount() do
+	    log(dataSet:GetCell(i, "name"), dataSet:GetCell(i, "level"), dataSet:GetCell(i, "hp"))
+	end
+
+	-- mod1     1   50
+	-- mod2     2   100
+	-- mod3     3   150
+}

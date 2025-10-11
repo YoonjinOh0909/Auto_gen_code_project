@@ -1,0 +1,20 @@
+local sampleStorage = _DataStorageService:GetGlobalDataStorage("sampleStorage")
+_DataStorageService:GetGlobalDataStoragePagesAsync(function(errorCode, pages)
+if errorCode ~= 0 then
+	return
+end
+     
+while true do
+	local dataStorages = pages:GetCurrentPageDatas()
+
+	for i, dataStorage in ipairs(dataStorages) do
+		_DataStorageService:DeleteGlobalDataStorageAndWait(dataStorage.Name)
+	end
+	         
+	if pages.IsLastPage == true then
+		break
+	end
+	         
+	pages:MoveToNextPageAndWait()
+	end
+end)

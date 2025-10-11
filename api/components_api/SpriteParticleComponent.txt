@@ -1,0 +1,32 @@
+Property:
+[Sync]
+SpriteParticleComponent SpriteParticle = nil
+
+Method:
+[client only]
+void OnBeginPlay
+{
+	self.SpriteParticle = self.Entity.SpriteParticleComponent
+	 
+	self.SpriteParticle.SpriteRUID = "000000"
+	self.SpriteParticle.ApplySpriteColor = true
+}
+
+Event Handler:
+[service: InputService]
+HandleKeyDownEvent (KeyDownEvent)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: InputService
+	-- Space: Client
+	---------------------------------------------------------
+	 
+	-- Parameters
+	local key = event.key
+	---------------------------------------------------------
+	if key == KeyboardKey.Q then
+		self.SpriteParticle:Stop()
+	elseif key == KeyboardKey.E then
+		self.SpriteParticle:Play()
+	end
+}

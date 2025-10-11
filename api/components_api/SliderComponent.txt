@@ -1,0 +1,44 @@
+Property:
+[None]
+Entity TextEntity = EntityPath
+  
+Method:
+[client only]
+void OnBeginPlay()
+{
+	local sliderComp = self.Entity.SliderComponent
+	if not sliderComp then
+		return
+	end
+	 
+	sliderComp.UseIntegerValue = true
+	sliderComp.MaxValue = 100
+	sliderComp.MinValue = 0
+	sliderComp.Value = 0
+	 
+	self:SetSliderText(sliderComp.Value)
+}
+  
+void SetSliderText(number sliderValue)
+{
+	if not self.TextEntity then
+		return
+	end
+  
+	local textComp = self.TextEntity.TextComponent
+	if not textComp then
+		return
+	end
+  
+	textComp.Text = string.format("%d", sliderValue)
+}
+  
+Event Handler:
+[self]
+HandleSliderValueChangedEvent (SliderValueChangedEvent event)
+{
+	-- Parameters
+	local Value = event.Value
+	--------------------------------------------------------
+	self:SetSliderText(sliderValue)
+}

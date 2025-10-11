@@ -1,0 +1,36 @@
+Method:
+[client only]
+void OnBeginPlay
+{
+	-- client와 server의 로그를 출력
+	self:SetShouldShowServerLog(true)
+	self:LogClient()
+	self:LogServer()
+	 
+	-- client의 로그만 출력
+	self:SetShouldShowServerLog(false)
+	self:LogClient()
+	self:LogServer()
+}
+
+[server]
+void LogServer ()
+{
+	log("log server")
+	log_warning("log_warning server")
+	log_error("log_error server")
+}
+
+[client]
+void LogClient ()
+{
+	log("log client")
+	log_warning("log_warning client")
+	log_error("log_error client")
+}
+
+[server]
+void SetShouldShowServerLog ( boolean shouldShowLog)
+{
+	_LogService:SetShouldShowServerLog(shouldShowLog)
+}

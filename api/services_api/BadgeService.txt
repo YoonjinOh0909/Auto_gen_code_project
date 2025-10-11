@@ -1,0 +1,21 @@
+Method:
+void SearchAvailableNormalRareBadges ()
+{
+	-- 노멀, 레어 등급이고 획득 가능 상태인 배지를 검색합니다.
+	local pages = _BadgeService:GetBadgeInfosAndWait({BadgeGrade.Normal, BadgeGrade.Rare}, BadgeStatus.Ing)
+	  
+	while true do
+		local pageDatas = pages:GetCurrentPageDatas()
+	       
+		for _, badge in ipairs(pageDatas) do
+			-- 검색된 배지의 정보
+			log("Badge Id: " .. badge.Id .. " Name: " .. badge.Name .. " Grade: " .. tostring(badge.Grade))
+		end
+	       
+		if pages.IsLastPage then
+			break
+		end
+		      
+		pages:MoveToNextPageAndWait()
+	end
+}

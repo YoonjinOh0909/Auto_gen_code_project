@@ -1,0 +1,9 @@
+Method:
+[client only]
+void OnBeginPlay ()
+{
+	self.Entity.SoundComponent.AudioClipRUID = "000000" 
+	self.Entity.SoundComponent.Loop = true
+	self.Entity.SoundComponent:SetListenerEntity(_UserService.LocalPlayer)
+	self.Entity.SoundComponent:Play()
+}

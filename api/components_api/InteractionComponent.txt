@@ -1,0 +1,41 @@
+Event Handler:
+[self]
+HandleInteractionEnterEvent (InteractionEnterEvent event)
+{
+	-- Parameters
+	local InteractionEntity = event.InteractionEntity
+	--------------------------------------------------------
+	if self:IsClient() then
+		return
+	end
+ 
+	local effectRoot = _EntityService:GetEntityByPath(EntityPath)
+	effectRoot.Enable = true
+}
+
+[self]
+HandleInteractionLeaveEvent (InteractionLeaveEvent event)
+{
+	-- Parameters
+	local InteractionEntity = event.InteractionEntity
+	--------------------------------------------------------
+	if self:IsClient() then
+		return
+	end
+	 
+	local effectRoot = _EntityService:GetEntityByPath(EntityPath)
+	effectRoot.Enable = false
+}
+
+[self]
+HandleInteractionEvent (InteractionEvent event)
+{
+	-- Parameters
+	local InteractionEntity = event.InteractionEntity
+	--------------------------------------------------------
+	if self:IsServer() then
+		return
+	end
+	 
+	InteractionEntity.MovementComponent.InputSpeed = 3
+}

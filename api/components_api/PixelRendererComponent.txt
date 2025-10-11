@@ -1,0 +1,50 @@
+Property:
+[None]
+table<Vector2> Puzzles
+[None]
+PixelRendererComponent PixelRendererComp = nil
+[None]
+table<Vector> PuzzlePos
+
+Method:
+[client only]
+void OnBeginPlay ()
+{
+	self.PixelRendererComp = self.Entity.PixelRendererComponent
+	self.PixelRendererComp:FillColor(Color.black)
+	 
+	for i=1, 9 do
+		local xPos = _UtilLogic:RandomIntegerRange(1, 3)
+		local yPos = _UtilLogic:RandomIntegerRange(1, 3)
+		self.Puzzles[i] = Vector2(xPos, yPos)
+	end
+}
+
+[client only]
+void StartPuzzle (number index)
+{
+	if index > #self.Puzzles then return end
+	 
+	self.PixelRendererComp:SetPixel(self.Puzzles[index].x, self.Puzzles[index].y, Color.yellow)
+	wait(0.35)
+	self.PixelRendererComp:SetPixel(self.Puzzles[index].x, self.Puzzles[index].y, Color.black)
+	wait(0.1)
+	self:StartPuzzle(index + 1)
+}
+
+Event Handler:
+[service: InputService]
+HandleKeyDownEvent (KeyDownEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: InputService
+	-- Space: Client
+	---------------------------------------------------------
+	 
+	-- Parameters
+	local key = event.key
+	---------------------------------------------------------
+	if key == KeyboardKey.F then
+		self:StartPuzzle(1)
+	end
+}

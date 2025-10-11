@@ -1,0 +1,26 @@
+Property:
+[None]
+GridViewComponent Inventory = nil
+[None]
+Entity InventorySlot = nil
+  
+Method:
+[client only]
+void OnBeginPlay ()
+{
+	self.Inventory.ItemEntity = self.InventorySlot
+	self.Inventory.OnRefresh = self.OnRefresh
+	self.Inventory.OnClear = self.OnClear
+	self.Inventory.TotalCount = 10
+	self.Inventory:Refresh()
+}
+ 
+void OnRefresh (number index, Entity entity)
+{
+	entity:GetChildByName("Name").TextComponent.Text = tostring(index)
+}
+ 
+void OnClear (number index, Entity entity)
+{
+	entity:GetChildByName("Name").TextComponent.Text = ""
+}

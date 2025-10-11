@@ -1,0 +1,30 @@
+Event Handler:
+[service: InputService]
+HandleKeyDownEvent (KeyDownEvent event)
+{
+	-- Parameters
+	local key = event.key
+	--------------------------------------------------------
+	 
+	if key == KeyboardKey.LeftShift then
+		local targetEntity = _EntityService:GetEntityByPath(EntityPath)
+		local targetCamera = targetEntity.CameraComponent
+	 
+		_CameraService:SwitchCameraTo(targetCamera)
+		_CameraService:ZoomTo(200, 1.0)
+	end
+}
+ 
+[service: InputService]
+HandleKeyUpEvent (KeyUpEvent event)
+{
+	-- Parameters
+	local key = event.key
+	-------------------------------------------------------- 
+	if key == KeyboardKey.LeftShift then
+		local targetCamera = _UserService.LocalPlayer.CameraComponent
+	     
+		_CameraService:ZoomReset()
+		_CameraService:SwitchCameraTo(targetCamera)
+	end
+}

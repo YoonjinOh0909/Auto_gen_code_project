@@ -1,0 +1,31 @@
+Method:
+[server only]
+void OnBeginPlay()
+{
+	local damageSkinSpawnerComponent = self.Entity.DamageSkinSpawnerComponent
+	
+	if damageSkinSpawnerComponent == nil then
+	    return
+	end
+	
+	local transformComponent = self.Entity.TransformComponent
+	
+	if transformComponent == nil then
+		return
+	end
+	
+	local hitComponent = self.Entity.HitComponent
+	
+	if hitComponent == nil then
+	    return
+	end 
+	
+	local weight = self.Entity.TransformComponent.Scale:ToVector2()
+	 
+	local hitBoxOffset = hitComponent.ColliderOffset * weight
+	local hitBoxSize = hitComponent.BoxSize * weight
+	
+	local damageOffset = Vector2(hitBoxOffset.x, hitBoxOffset.y + hitBoxSize.y / 2)
+	
+	damageSkinSpawnerComponent.DamageSkinOffset = damageOffset
+}

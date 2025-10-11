@@ -1,0 +1,59 @@
+Property:
+[Sync]
+number Health = 1000
+[None]
+number InitialHealth = 0
+[None]
+Vector2 InitialBoxSize = Vector2(0,0)
+  
+Method:
+[server only]
+void OnBeginPlay ()
+{
+	self.InitialHealth = self.Health
+	self.InitialBoxSize = self.Entity.HitComponent.BoxSize:Clone()
+}
+  
+Entity Event Handler:
+[server only] [self]
+HandleHitEvent (HitEvent event)
+{
+	-- Parameters
+	local AttackCenter = event.AttackCenter
+	local AttackerEntity = event.AttackerEntity
+	local Damages = event.Damages
+	local Extra = event.Extra
+	local FeedbackAction = event.FeedbackAction
+	local IsCritical = event.IsCritical
+	local TotalDamage = event.TotalDamage
+	--------------------------------------------------------
+	  
+	local hitComponent = self.Entity.HitComponent
+	  
+	self.Health = self.Health - TotalDamage
+	self.Health = math.max(self.Health, 0.0)
+	  
+	if self.Health > 0.0 then
+		local ratio = 10 - ((10 - 1) / self.InitialHealth) * self.Health
+		hitComponent.BoxSize = self.InitialBoxSize * ratio
+	else
+		_EntityService:Destroy(self.Entity)
+	end
+}
+Property:
+[None]
+number ImmuneCooldown = 1
+[None]
+number LastHitTime = 0
+  
+Method:
+override boolean IsHitTarget()
+{
+	local currentTime = _UtilLogic.ElapsedSeconds
+		if self.LastHitTime + self.ImmuneCooldown < currentTime then
+		self.LastHitTime = _UtilLogic.ElapsedSeconds
+	return true
+	end
+	
+	return false
+}

@@ -1,0 +1,30 @@
+Property:
+[None]
+number ForcePower = 100
+
+Method:
+[client only]
+void OnBeginPlay ()
+{
+	if _MobileAccelerometerService:IsHWSupported() then
+		_MobileAccelerometerService:Start()
+		_UIToast:ShowMessage("Start AccelerometerService")
+	end
+	
+}
+
+void OnUpdate (number delta)
+{
+	if _MobileAccelerometerService:IsEnabled() then
+		local accDir = _MobileAccelerometerService:GetLastAcceleration()
+		local dir = Vector2(accDir.x, accDir.y)
+		-- 기기의 기울어진 정도만큼 물체에 힘을 가합니다.
+		self:Tilt(dir)
+	end
+}
+
+[server]
+void Tilt (Vector dir)
+{
+	self.BallEntityRef.PhysicsRigidbodyComponent:ApplyForce(dir * self.ForcePower)
+}

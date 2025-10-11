@@ -1,0 +1,19 @@
+Event Handler:
+[server only] [service: UserService]
+HandleUserEnterEvent (UserEnterEvent event)
+{
+	-- Parameters
+	local UserId = event.UserId
+	--------------------------------------------------------
+	 
+	local userEntity = _UserService:GetUserEntityByUserId(UserId)
+	local nametag = userEntity.NameTagComponent
+	 
+	if UserId == "000000" then
+		nametag.Name = "Admin"
+		nametag.FontColor = Color.magenta
+	else
+		nametag.Name = "Player"
+		nametag.FontColor = Color.cyan
+	end
+}

@@ -1,0 +1,30 @@
+Property:
+[Sync]
+AreaParticleComponent ParticleComponent = nil
+
+Method:
+[client only]
+void OnBeginPlay
+{
+	self.ParticleComponent = self.Entity.AreaParticleComponent	 
+	self.ParticleComponent.AreaSize.x = _UtilLogic:RandomDouble() * 2
+	self.ParticleComponent.ParticleCount = 2
+}
+
+Event Handler:
+[service: InputService]
+{
+	----------------- Native Emitter Info ------------------
+	-- Emitter: InputService
+	-- Space: Client
+	--------------------------------------------------------
+	 
+	-- Parameters
+	local key = event.key
+	--------------------------------------------------------
+	if key == KeyboardKey.Q then
+		self.ParticleComponent:Stop()
+	elseif key == KeyboardKey.E then
+		self.ParticleComponent:Play()
+	end
+}

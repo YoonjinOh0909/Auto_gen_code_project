@@ -1,0 +1,4 @@
+local modelId = _EntryService:GetModelIdByName("NewModel")
+if modelId ~= nil then 
+    _SpawnService:SpawnByModelId(modelId , "NewEntity" , Vector3.zero , self.Entity)   
+end

@@ -1,0 +1,22 @@
+Property:
+[None]
+WebSpriteComponent webSprite = nil
+
+Method:
+[client only]
+void OnBeginPlay ()
+{
+	self.webSprite = self.Entity.WebSpriteComponent
+	 
+	self.webSprite.Url = "Http://WebUrl"
+	 
+	-- 초기 색을 투명하게 설정
+	self.webSprite.Color = Color(1.0, 1.0, 1.0, 0.0)
+}
+
+[client only]
+void OnUpdate (number delta)
+{
+	local alpha = self.webSprite.Color.a
+	self.webSprite.Color = Color(1.0, 1.0, 1.0, alpha + delta / 5.0)
+}

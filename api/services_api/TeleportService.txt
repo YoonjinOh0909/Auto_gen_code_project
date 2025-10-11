@@ -1,0 +1,21 @@
+Event Handler:
+[service: InputService]
+HandleKeyDownEvent (KeyDownEvent event)
+{
+	-- Parameters
+	local key = event.key
+	--------------------------------------------------------
+	         
+	if key == KeyboardKey.LeftShift then
+		local me = _UserService.LocalPlayer
+		local currentMapName = me.CurrentMapName
+		local currentPosition = me.TransformComponent.Position
+		local allMonsters = _EntityService:GetEntitiesByTag("Monster")
+		     
+		for i = 1, #allMonsters do
+			_TeleportService:TeleportToEntity(allMonsters[i], me)
+		end
+		     
+		_TeleportService:TeleportToMapPosition(me, currentPosition + Vector3(0, 2), currentMapName)
+	end
+}

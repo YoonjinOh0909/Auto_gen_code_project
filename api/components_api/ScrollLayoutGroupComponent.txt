@@ -1,0 +1,34 @@
+Property:
+[None]
+Entity ItemEntity = "nil"
+[None]
+number InitItemCount = 0
+  
+Method:
+[ClientOnly]
+void OnBeginPlay()
+{
+	self.ItemEntity = self.Entity:GetChildByName("Scroll_Image")
+	self.InitItemCount = 10
+	 
+	self:Init()
+}
+  
+void Init()
+{
+	if not self.ItemEntity then
+		return
+	end
+	
+	local scrollLayoutComp = self.Entity.ScrollLayoutGroupComponent
+	if scrollLayoutComp then
+		scrollLayoutComp.CellSize = Vector2(200, 200)
+		scrollLayoutComp.Constraint = GridLayoutConstraint.FixedColumnCount
+		scrollLayoutComp.ConstraintCount = 1
+	end
+	 
+	local i = 0
+	for i = 0, self.InitItemCount, 1 do
+		local itemslot = _SpawnService:Clone("Item", self.ItemEntity, self.Entity)
+	end
+}

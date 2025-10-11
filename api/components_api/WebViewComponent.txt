@@ -1,0 +1,93 @@
+Method:
+[client only]
+void OnBeginPlay ()
+{
+	local webview = self.Entity.WebViewComponent
+	if webview == nil then
+	    log_error("Entity doesn't have WebViewComponent")
+	    return
+	end
+	 
+	local webviewGroup = _EntityService:GetEntityByPath("/ui/WebViewGroup")
+	if webviewGroup == nil then
+	    webviewGroup = _SpawnService:SpawnByModelId("model://uigroup", "WebViewGroup", Vector3.zero, _EntityService:GetEntityByPath("/ui"))
+	end
+	 
+	webviewGroup.Enable = true
+	 
+	local forwardButton = _SpawnService:SpawnByModelId("model://uibutton", "Button_Forward", Vector3.zero, webviewGroup)
+	local backwardButton = _SpawnService:SpawnByModelId("model://uibutton", "Button_Backward", Vector3.zero, webviewGroup)
+	local urlInputField = _SpawnService:SpawnByModelId("model://uitext", "UIUrlInputField", Vector3.zero, webviewGroup)
+	urlInputField:AddComponent(TextInputComponent)
+	 
+	forwardButton.UITransformComponent.AlignmentOption = AlignmentType.TopRight
+	backwardButton.UITransformComponent.AlignmentOption = AlignmentType.TopRight
+	urlInputField.UITransformComponent.AlignmentOption = AlignmentType.TopRight
+	 
+	forwardButton.UITransformComponent.anchoredPosition = Vector2(-40, -155)
+	forwardButton.UITransformComponent.RectSize = Vector2(75, 75)
+	forwardButton.UITransformComponent.ZRotation = 90
+	forwardButton.SpriteGUIRendererComponent.ImageRUID = "000000"
+	 
+	backwardButton.UITransformComponent.anchoredPosition = Vector2(-115, -155)
+	backwardButton.UITransformComponent.RectSize = Vector2(75, 75)
+	backwardButton.UITransformComponent.ZRotation = 90
+	backwardButton.SpriteGUIRendererComponent.ImageRUID = "000000"
+	backwardButton.SpriteGUIRendererComponent.FlipY = true
+	 
+	urlInputField.UITransformComponent.Pivot = Vector2(1, 0.5)
+	urlInputField.UITransformComponent.anchoredPosition = Vector2(-155, -155)
+	urlInputField.UITransformComponent.RectSize = Vector2(500, 75)
+	 
+	urlInputField.SpriteGUIRendererComponent.ImageRUID = "000000"
+	urlInputField.SpriteGUIRendererComponent.Color = Color.white
+	urlInputField.TextComponent.Overflow = OverflowType.Truncate
+	urlInputField.TextComponent.Padding = RectOffset(15, 15, 15, 15)
+	urlInputField.TextComponent.FontColor = Color.white
+	urlInputField.TextComponent.Text = webview.Url
+	urlInputField.TextInputComponent.Text = webview.Url
+	 
+	-- 각 UI엔티티들에 이벤트 연결
+	urlInputField:ConnectEvent(TextInputEndEditEvent, function (event)
+	        webview.Url = event.text
+	    end)
+	 
+	backwardButton:ConnectEvent(ButtonClickEvent, function ()
+	        webview:GoBack()
+	    end)
+	 
+	forwardButton:ConnectEvent(ButtonClickEvent, function ()
+	        webview:GoForward()
+	    end)
+	 
+	-- 웹 로드 완료 시 InputField를 현재 주소로 갱신
+	self.Entity:ConnectEvent(WebLoadCompleteEvent, function ()
+	        urlInputField.TextComponent.Text = webview.Url
+	    end)
+}
+
+Event Handler:
+[service: InputService]
+HandleKeyDownEvent (KeyDownEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: InputService
+	-- Space: Client
+	---------------------------------------------------------
+	 
+	-- Parameters
+	local key = event.key
+	---------------------------------------------------------
+	if self.Entity.WebViewComponent == nil then
+	    return
+	end
+	 
+	-- 플러스, 마이너스 키 입력 시 확대, 축소
+	if key == KeyboardKey.Equals or key == KeyboardKey.KeypadPlus then
+	    self.Entity.WebViewComponent:ZoomIn()
+	end
+	 
+	if key == KeyboardKey.Minus or key == KeyboardKey.KeypadMinus then
+	    self.Entity.WebViewComponent:ZoomOut()
+	end
+}

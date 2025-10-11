@@ -1,0 +1,37 @@
+Property:
+[None]
+number Fill = 0
+[None]
+boolean IsRequire = false
+
+Method:
+[client only]
+void OnBeginPlay ()
+{
+	local renderer = self.Entity.SpriteGUIRendererComponent
+	if not renderer then
+		return
+	end
+	
+	self.IsRequire = true
+	renderer.ImageRUID = "000000"
+	renderer.Type = ImageType.Filled
+	renderer.FillMethod = FillMethodType.Radial360
+	renderer.Color = Color.white
+	renderer.AnimClipPlayType = SpriteAnimClipPlayType.ZigzagLoop
+}
+ 
+[client only]
+void OnUpdate (number delta)
+{
+	if not self.IsRequire then
+		return
+	end
+	
+	self.Fill = math.min( self.Fill + delta, 1)
+	     
+	self.Entity.SpriteGUIRendererComponent.FillAmount = self.Fill
+	if self.Fill >= 1.0 then
+		self.Fill = 0
+	end
+}

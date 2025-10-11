@@ -1,0 +1,19 @@
+Event Handler:
+[server only] [self]
+HandleTriggerEnterEvent (TriggerEnterEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: InputService
+	-- Space: Client
+	---------------------------------------------------------
+	
+	-- Parameters
+	local inputValue = event.inputValue
+	local key = event.key
+	---------------------------------------------------------
+	if key == KeyboardKey.P then
+		self.Entity.CurrentMap.PhysicsSimulatorComponent.Paused = not self.Entity.CurrentMap.PhysicsSimulatorComponent.Paused
+	elseif key == KeyboardKey.G then
+		self.Entity.CurrentMap.PhysicsSimulatorComponent.Gravity = Vector2(0, 0)
+	end
+}

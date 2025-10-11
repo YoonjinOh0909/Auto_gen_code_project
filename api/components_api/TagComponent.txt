@@ -1,0 +1,32 @@
+Method:
+[server only]
+void OnBeginPlay ()
+{
+	local showWinner = function()
+		local winners = _EntityService:GetEntitiesByTag("Qualified")
+	
+		for i = 1, #winners do
+			local nametag = winners[i].NameTagComponent
+			nametag.FontColor = Color.green
+			nametag.FontSize = 4
+			nametag.Name = "★ Qualified ★"
+		end
+	end
+	 
+	_TimerService:SetTimerOnce(showWinner, 10.0)
+}
+ 
+Event Handler:
+[self]
+HandleTriggerEnterEvent (TriggerEnterEvent event)
+{
+	-- Parameters
+	local TriggerBodyEntity = event.TriggerBodyEntity
+	--------------------------------------------------------
+	 
+	if TriggerBodyEntity.PlayerComponent == nil then
+		return
+	end
+	 
+	TriggerBodyEntity.TagComponent:AddTag("Qualified")
+}

@@ -1,0 +1,8 @@
+local tween =self.Entity.TweenCircularComponent
+tween.Degree = 0
+
+-- 회전 반경을 2로 설정합니다.
+tween.Radius = 2
+
+-- 1초에 180도만큼의 속력으로 회전합니다. 한 바퀴 회전하는 데 2초가 소요됩니다.
+tween.Speed = 180

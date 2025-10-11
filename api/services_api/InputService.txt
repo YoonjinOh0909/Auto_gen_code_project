@@ -1,0 +1,154 @@
+Property:
+[None]
+number KeyDownTime = 0
+ 
+Event Handler:
+[service: InputService]
+HandleKeyDownEvent (KeyDownEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: InputService
+	-- Space: Client
+	---------------------------------------------------------
+	
+	-- Parameters
+	local key = event.key
+	---------------------------------------------------------
+	if key == KeyboardKey.Z then
+		self.Entity.StateComponent:ChangeState("CROUCH")
+		self.KeyDownTime = _UtilLogic.ElapsedSeconds
+	end
+}
+Event Handler:
+[service: InputService]
+HandleKeyUpEvent (KeyUpEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: InputService
+	-- Space: Client
+	---------------------------------------------------------
+	
+	-- Parameters
+	local key = event.key
+	---------------------------------------------------------
+	if key == KeyboardKey.Z then
+	local force = (_UtilLogic.ElapsedSeconds - self.KeyDownTime) * 10
+		self.Entity.RigidbodyComponent:SetForce(Vector2(0, force))
+		self.Entity.StateComponent:ChangeState("JUMP")
+	end
+}
+Event Handler:
+[service: InputService]
+HandleKeyHoldEvent (KeyHoldEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: InputService
+	-- Space: Client
+	---------------------------------------------------------
+	
+	-- Parameters
+	local key = event.key
+	---------------------------------------------------------
+	if key == KeyboardKey.Z then
+		local keyHoldTime = _UtilLogic.ElapsedSeconds - self.KeyDownTime
+		local scale = 1 + keyHoldTime
+		self.Entity.TransformComponent.Scale = Vector3.one * scale
+	
+	end
+}
+Event Handler:
+[service: InputService]
+HandleKeyReleaseEvent (KeyReleaseEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: InputService
+	-- Space: Client
+	---------------------------------------------------------
+	
+	-- Parameters
+	 local key = event.key
+	---------------------------------------------------------
+	if key == KeyboardKey.Z then
+		self.Entity.TransformComponent.Scale = Vector3.one
+	end
+}
+Method:
+[server only]
+void OnBeginPlay ()
+{
+	local root = _EntityService:GetEntityByPath(EntityPath)
+	for i = 1, #root.Children do
+		root.Children[i].Enable = false
+	end
+}
+
+Event Handler:
+[service: InputService]
+HandleScreenTouchEvent (ScreenTouchEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: InputService
+	-- Space: Client
+	---------------------------------------------------------
+	 
+	-- Parameters
+	local TouchId = event.TouchId
+	local TouchPoint = event.TouchPoint
+	---------------------------------------------------------
+	 
+	if TouchId < 1 then
+		return
+	end
+	 
+	local root = _EntityService:GetEntityByPath(EntityPath)
+	root.Children[TouchId].Enable = true
+	root.Children[TouchId].BasicParticleComponent.Color = Color.green
+	root.Children[TouchId].TransformComponent.WorldPosition = _UILogic:ScreenToWorldPosition(TouchPoint):ToVector3()
+}
+
+[service: InputService]
+HandleScreenTouchReleaseEvent (ScreenTouchReleaseEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: InputService
+	-- Space: Client
+	---------------------------------------------------------
+	 
+	-- Parameters
+	local TouchId = event.TouchId
+	local TouchPoint = event.TouchPoint
+	---------------------------------------------------------
+	if TouchId < 1 then
+		return
+	end
+	 
+	local root = _EntityService:GetEntityByPath(EntityPath)
+	root.Children[TouchId].Enable = false
+	root.Children[TouchId].BasicParticleComponent.Color = Color.white
+}
+Property:
+[None]
+string CursorRUID_Normal = "3930c5d2e85b4bff8467aada64fda7f5"
+[None]
+string CursorRUID_Click = "79819392249746f88952f3b2321f2f17"
+[None]
+boolean IsClicking = nil
+ 
+Method:
+[client only]
+void OnUpdate (number delta)
+{
+	local click = _InputService:IsKeyPressed(KeyboardKey.Mouse0)
+	
+	if self.IsClicking == click then
+		return
+	end
+	
+	if click == true then
+		_InputService:SetCursor(self.CursorRUID_Click, Vector2.zero)
+	else
+		_InputService:SetCursor(self.CursorRUID_Normal, Vector2.zero)
+	end
+	
+	self.IsClicking = click
+}

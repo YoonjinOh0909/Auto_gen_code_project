@@ -1,0 +1,52 @@
+Event Handler:
+[self]
+HandleChatEvent (ChatEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: ChatComponent
+	-- Space: Client
+	---------------------------------------------------------
+	 
+	-- Parameters
+	local Message = event.Message
+	local SenderName = event.SenderName
+	local UserId = event.UserId
+	---------------------------------------------------------
+	 
+	local localId = _UserService.LocalPlayer.OwnerId
+	if string.compare(localId, UserId) == false then
+		return
+	end
+	 
+	local lowerMessage = string.lower(Message)
+	 
+	local findEmotion = EmotionalType.Invalid
+	local len = 23
+	for i = 1, len do
+		local key = string.lower(tostring(EmotionalType.CastFrom(i)))
+	 
+		if lowerMessage:find(key, 1, true ) then
+			log("onChat Find : ", key)
+			findEmotion = EmotionalType.CastFrom(i)
+		end
+	end
+	 
+	if findEmotion == EmotionalType.Invalid then
+		return
+	end
+	 
+	local chatComponent = self.Entity.ChatComponent
+	local duration = #tostring(findEmotion)
+	if chatComponent then
+		chatComponent.UseChatEmotion = true
+		chatComponent.ChatEmotionDuration = duration
+	end
+	 
+	local balloonComponent = _UserService.LocalPlayer.ChatBalloonComponent
+	if balloonComponent then
+		balloonComponent.ShowDuration = duration
+	end
+	 
+	 
+	log("OnChatEvent ", Message, " duration :", duration)
+}

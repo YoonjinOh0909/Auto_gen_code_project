@@ -1,0 +1,9 @@
+Method:
+[server only]
+void OnBeginPlay ( )
+{
+	local zoom = function()
+	    self.Entity.CameraComponent:SetZoomTo(300, 2)
+	end
+	_TimerService:SetTimerOnce(zoom, 4)
+}

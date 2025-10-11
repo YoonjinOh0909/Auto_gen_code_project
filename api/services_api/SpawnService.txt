@@ -1,0 +1,10 @@
+Method:
+[server only]
+void OnBeginPlay()
+{
+	local entity = _EntityService:GetEntityByPath("Entity Path")
+	local clone1 = _SpawnService:SpawnByEntity(entity, "clone1", Vector3(1, 0, 0))
+	 
+	local modelId = "Model Entry Id"
+	local clone2 = _SpawnService:SpawnByModelId(modelId, "clone2", Vector3(0, 1, 0), clone1)
+}

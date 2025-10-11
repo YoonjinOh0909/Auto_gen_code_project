@@ -1,0 +1,43 @@
+Event Handler:
+[service: InputService]
+HandleScreenTouchEvent (ScreenTouchEvent event)
+{
+	-- Parameters
+	local TouchPoint = event.TouchPoint
+	--------------------------------------------------------
+	 
+	local worldPosition = _UILogic:ScreenToWorldPosition(TouchPoint)
+	local me = _UserService.LocalPlayer
+	local currentMapName = me.CurrentMapName
+	local destinationPosition = Vector3(worldPosition.x, worldPosition.y, 0)
+	 
+	_TeleportService:TeleportToMapPosition(me, destinationPosition, currentMapName)
+}
+Property:
+[None]
+UITransfromComponent followingUI = nil
+ 
+Method:
+[client only]
+void OnBeginPlay()
+{
+	self.followingUI = _EntityService:GetEntityByPath("/ui/UIGroup/UIEmpty").UITransformComponent
+}
+ 
+ 
+Event Handler:
+[service: InputService]
+HandleScreenTouchEvent (ScreenTouchEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: InputService
+	-- Space: Client
+	---------------------------------------------------------
+	
+	-- Parameters
+	-- local TouchId = event.TouchId
+	local TouchPoint = event.TouchPoint
+	---------------------------------------------------------
+
+	self.followingUI.anchoredPosition = _UILogic:ScreenToUIPosition(TouchPoint)
+}

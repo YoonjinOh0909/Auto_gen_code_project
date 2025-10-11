@@ -1,0 +1,28 @@
+Property:
+[None]
+integer TimerId = 0
+
+Method:
+[server only]
+void OnBeginPlay
+{
+	local repeatFunc = function()
+		local transform = self.Entity.TransformComponent
+		local zRot = transform.ZRotation
+		
+		transform.ZRotation = zRot - (360.0 / 60.0)
+	end
+	
+	self.TimerId = _TimerService:SetTimerRepeat(repeatFunc,1.0)
+	if self.TimerId == 0 then
+		log_error("Timer reservation failed.")
+	end
+}
+
+[server only]
+void OnEndPlay()
+{
+	if self.TimerId > 0 then
+		_TimerService:ClearTimer(self.TimerId)
+	end
+}

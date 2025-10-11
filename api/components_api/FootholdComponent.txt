@@ -1,0 +1,99 @@
+Method:
+[server]
+void GetNearstFootholdByPoint(Vector point, number distance)
+{
+	local footholdComponent = self.Entity.CurrentMap.FootholdComponent
+	if footholdComponent == nil then
+		return
+	end
+	 
+	local foothold = footholdComponent:GetNearestFootholdByPoint(point, distance)
+	if foothold == nil then
+		log("There is no close foothold.")
+		return
+	end
+	 
+	local entity = _EntityService:GetEntity(foothold.OwnerId)
+	if entity == nil or entity.CustomFootholdComponent == nil then
+		return
+	end
+	 
+	if entity.CustomFootholdComponent.IsDynamicFoothold == false then
+		return
+	end
+	 
+	entity:Destroy()
+}
+
+[server]
+void Raycast(Vector direct, number distance)
+{
+	local footholdComponent = self.Entity.CurrentMap.FootholdComponent
+	if footholdComponent == nil then
+		return
+	end
+	 
+	local foothold = footholdComponent:Raycast(self.Entity.TransformComponent.Position:ToVector2(), direct:Normalize(), distance)
+	if foothold == nil then
+		log("There is no close foothold.")
+		return
+	end
+	 
+	local entity = _EntityService:GetEntity(foothold.OwnerId)
+	if entity == nil or entity.CustomFootholdComponent == nil then
+		return
+	end
+	 
+	if entity.CustomFootholdComponent.IsDynamicFoothold == false then
+		return
+	end
+	 
+	entity:Destroy()
+}
+
+[server]
+void RaycastAll(Vector2 direct, number distance)
+{
+	local footholdComponent = self.Entity.CurrentMap.FootholdComponent
+	if footholdComponent == nil then
+		return
+	end
+	 
+	local footholds = footholdComponent:RaycastAll(self.Entity.TransformComponent.Position:ToVector2(), direct:Normalize(), distance)
+	if footholds == nil then
+		log("There is no close foothold.")
+		return
+	end
+	 
+	for i, j in ipairs(footholds) do
+		local entity = _EntityService:GetEntity(j.OwnerId)
+		if entity == nil or entity.CustomFootholdComponent == nil then
+			return
+		end
+		 
+		if entity.CustomFootholdComponent.IsDynamicFoothold == false then
+			return
+		end
+		 
+		entity:Destroy()
+	end
+}
+
+Event Handler:
+[service: InputService]
+HandleScreenTouchEvent(ScreenTouchEvent event)
+{
+	-- Parameters
+	local TouchPoint = event.TouchPoint
+	--------------------------------------------------------
+	local rand = _UtilLogic:RandomIntegerRange(1,3)
+	log(rand)
+	
+	if rand == 1 then
+		self:GetNearestFootholdByPoint(_UILogic:ScreenToWorldPosition(TouchPoint), 1)
+	elseif rand == 2 then
+		self:Raycast(_UILogic:ScreenToWorldPosition(TouchPoint), 5)
+	else
+		self:RaycastAll(_UILogic:ScreenToWorldPosition(TouchPoint), 10)
+	end
+}

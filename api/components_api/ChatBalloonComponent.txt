@@ -1,0 +1,20 @@
+Method:
+[server only]
+void OnBeginPlay ()
+{
+	local chatBalloon = self.Entity.ChatBalloonComponent
+	 
+	local npcTalks = {}
+	table.insert(npcTalks, "NPC Talk 1")
+	table.insert(npcTalks, "NPC Talk 2")
+	table.insert(npcTalks, "NPC Talk 3")
+	table.insert(npcTalks, "NPC Talk 4")
+	 
+	local setMessage = function()
+		local idx = _UtilLogic:RandomIntegerRange(1, #npcTalks)
+		chatBalloon.Message = npcTalks[idx]
+	end
+	 
+	local interval = chatBalloon.ShowDuration + chatBalloon.HideDuration
+	_TimerService:SetTimerRepeat(setMessage, interval)
+}

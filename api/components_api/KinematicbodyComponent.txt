@@ -1,0 +1,13 @@
+Method:
+[client only]
+void OnUpdate ()
+{
+	if _UserService.LocalPlayer ~= self.Entity then
+		return
+	end
+	 
+	local kinematicbody = self.Entity.KinematicbodyComponent
+	 
+	local isOnGround = kinematicbody:IsOnGround()
+	kinematicbody.EnableTileCollision = isOnGround
+}

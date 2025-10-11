@@ -1,0 +1,34 @@
+Method:
+[server]
+void ChangeBoxSize (Vector2 boxSize)
+{
+	local entity = _EntityService:GetEntityByPath(EntityPath)
+	entity.ClimbableComponent.BoxSize = boxSize
+}
+
+[client]
+void ChangeSpeedVector (Vector2 speedVector)
+{
+	local entity = _EntityService:GetEntityByPath(EntityPath)
+	entity.ClimbableComponent.SpeedFactor = speedVector
+}
+
+Event Handler:
+[server only] [self]
+HandleTriggerEnterEvent (TriggerEnterEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: TriggerComponent
+	-- Space: Server, Client
+	---------------------------------------------------------
+	 
+	-- Parameters
+	local TriggerBodyEntity = event.TriggerBodyEntity
+	---------------------------------------------------------
+	 
+	if TriggerBodyEntity.Name == "Name" then
+		self:ChangeBoxSize(Vector2(3, 10))
+	elseif TriggerBodyEntity.Name == "Name" then
+		self:ChangeSpeedVector(Vector2(1, 2))
+	end
+}

@@ -1,0 +1,42 @@
+Property:
+[None]
+string Id = ""
+[None]
+string Password = ""
+[None]
+TextInputComponent IdInput = EntityPath
+[None]
+TextInputComponent PasswordInput = EntityPath
+ 
+ 
+Method:
+[client only]
+void OnBeginPlay ()
+{
+	self.IdInput.Text = ""
+	self.IdInput.PlaceHolder = "Id 입력"
+	  
+	self.PasswordInput.Text = ""
+	self.PasswordInput.PlaceHolder = "패스워드 입력"
+	self.PasswordInput.ContentType = InputContentType.Password
+}
+ 
+Event Handler:
+[entity: EntityPath]
+HandleTextInputEndEditEvent (TextInputEndEditEvent event)
+{
+	-- Parameters
+	local text = event.text
+	--------------------------------------------------------
+	log("입력된 아이디는 " .. self.InputId .. "입니다.")
+}
+ 
+[entity: EntityPath]
+HandleTextInputEndEditEvent2 (TextInputEndEditEvent event)
+{
+	-- Parameters
+	local text = event.text
+	--------------------------------------------------------
+	self.Password = text
+	log("입력된 패스워드는 " .. self.Password .. "입니다.")
+}

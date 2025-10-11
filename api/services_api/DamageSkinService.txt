@@ -1,0 +1,14 @@
+Event Handler:
+[self]
+HandleTriggerEnterEvent (TriggerEnterEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: TriggerComponent
+	-- Space: Server, Client
+	---------------------------------------------------------
+	
+	-- Parameters
+	local TriggerBodyEntity = event.TriggerBodyEntity
+	---------------------------------------------------------
+	_DamageSkinService:Play(TriggerBodyEntity, "000000", 0.05, {1, 2, 3}, DamageSkinTweenType.Default, false)
+}

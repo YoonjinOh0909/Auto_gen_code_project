@@ -1,0 +1,70 @@
+Property:
+[None]
+number TimerID = 0
+[None]
+number MessageLength = 0
+[None]
+number MessageIdx = 0
+[None]
+string RawMessage = ""
+
+Method:
+[client only]
+void OnBeginPlay()
+{
+	self.Entity.Parent.Enable = true
+	 
+	self.InputMessage = "안녕하세요. MSW에 오신 것을 환영합니다."
+	 
+	local textComponent = self.Entity.TextComponent
+	if not textComponent then
+		return
+	end
+	    
+	textComponent.Bold = true
+	textComponent.Alignment = TextAlignmentType.UpperLeft
+	textComponent.FontColor = Color.white
+	textComponent.UseOutLine = true
+	textComponent.OutlineColor = Color.black
+	textComponent.FontSize = 50
+	 
+	self:ShowDialogueOverTime(self.InputMessage, 0.1)
+	-- min val is 0.1
+}
+ 
+void ShowDialogueOverTime(string rawMessage,number interval)
+{
+	if interval <= 0 then
+		interval = 0.1
+	end
+	 
+	self.MessageIdx = 0
+	self.RawMessage = rawMessage
+	self.MessageLength = utf8.len(rawMessage)
+	
+	local UpdateMessage = function()
+		if self.MessageIdx < self.MessageLength then
+			self.MessageIdx = self.MessageIdx + 1
+			local currentString = _UtilLogic:SubString(self.RawMessage, 1, self.MessageIdx)
+		
+			if _UtilLogic:IsNilorEmptyString(currentString) == false then
+				self.Entity.TextComponent.Text =  currentString
+			end
+		else
+			self.Entity.TextComponent.Text =  ""
+			self:RestartDialogue()
+		end
+	end
+	 
+	self.TimerID = _TimerService:SetTimerRepeat(UpdateMessage, interval)
+}
+ 
+void CancelDialogue()
+{
+	_TimerService:ClearTimer(self.TimerID)
+}
+ 
+void RestartDialogue()
+{
+	self.MessageIdx = 0
+}

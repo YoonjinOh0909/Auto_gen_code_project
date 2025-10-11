@@ -1,0 +1,26 @@
+Method:
+[server]
+void ResizeRenderer (Vector2 tiledSize)
+{
+	local entity = _EntityService:GetEntityByPath(EntityPath)
+	entity.ClimbableSpriteRendererComponent.TiledSize = tiledSize
+	entity.ClimbableSpriteRendererComponent:ResetColliderBox()
+}
+
+Event Handler:
+[server only] [self]
+HandleTriggerEnterEvent (TriggerEnterEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: TriggerComponent
+	-- Space: Server, Client
+	---------------------------------------------------------
+	 
+	-- Parameters
+	local TriggerBodyEntity = event.TriggerBodyEntity
+	---------------------------------------------------------
+	 
+	if TriggerBodyEntity.Name == "Name" then
+		self:ResizeRenderer(Vector2(1, 5))
+	end
+}

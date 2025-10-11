@@ -1,0 +1,26 @@
+Property:
+[None]
+table<string> HitAnimations
+
+Method:
+void OnBeginPlay ()
+{
+	table.insert(self.HitAnimations, "000000")
+	table.insert(self.HitAnimations, "000000")
+	table.insert(self.HitAnimations, "000000")
+	table.insert(self.HitAnimations, "000000")
+}
+
+void SetRandomHitAnimation ()
+{
+	self:SetActionSheet("hit", self.HitAnimations[_UtilLogic:RandomIntegerRange(1, #self.HitAnimations)])
+}
+
+[override] string StateStringToAnimationKey (string stateName)
+{
+	if stateName == "HIT" then
+		self:SetRandomHitAnimation()
+	end
+
+	return __base:StateStringToAnimationKey(stateName)
+}

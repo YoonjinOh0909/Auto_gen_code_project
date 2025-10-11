@@ -1,0 +1,61 @@
+Method:
+[client only]
+void OnBeginPlay ()
+{
+	local utc = _UtilLogic:GetUTCNow()
+	log("GetUTCNow : " .. tostring(utc))                                   -- MM/dd/yyyy HH:mm:ss.fff
+	 
+	local randomInteger = _UtilLogic:RandomInteger()
+	log("RandomInteger : " .. tostring(randomInteger))                     -- 0 ~ 2147483646
+	  
+	local randomIntegerRange = _UtilLogic:RandomIntegerRange(1, 5)
+	log("RandomIntegerRange : " .. tostring(randomIntegerRange))           -- 1 ~ 5
+	  
+	local randomDouble = _UtilLogic:RandomDouble()
+	log("RandomDouble : " ..  tostring(randomDouble))                      -- 0.0 ~ 1.0
+	  
+	local empty = _UtilLogic:IsNilorEmptyString("")
+	log("IsNilorEmptyString : " .. tostring(empty))                        -- true
+	 
+	local trim = _UtilLogic:Trim("[testString]", "[]")
+	log("Trim : " .. tostring(trim))                                       -- testString
+	  
+	local trimStart = _UtilLogic:TrimStart("[testString]", "[]")
+	log("TrimStart : " .. tostring(trimStart))                             -- testString]
+	  
+	local trimEnd = _UtilLogic:TrimEnd("[testString]", "[]")
+	log("TrimEnd : " .. tostring(trimEnd))                                 -- [testString
+	  
+	local replace = _UtilLogic:Replace("@!testString@!", "@!", "*")
+	log("Replace : " .. tostring(replace))                                 -- *testString*
+	  
+	local contains = _UtilLogic:Contains("abcdefg", "bcd")
+	log("Contains : " .. tostring(contains))                               -- true
+	  
+	local split = _UtilLogic:Split("1,2,3,4,5", ",")
+	log("#Split : " .. tostring(#split))                                   -- 5
+	  
+	local subString = _UtilLogic:SubString("abcdefg", 1, 3)
+	log("SubString : " .. tostring(subString))                             -- abc
+	  
+	local insert = _UtilLogic:Insert("abcde", 2, "123")
+	log("Insert : " .. tostring(insert))                                   -- a123bcde
+	 
+	local table1 = { "first", "second" }
+	local tableToString = _UtilLogic:TableToString(table1)
+	log("TableToString : " .. tostring(tableToString))                    
+	--[[ Int64    1    String    first
+	     Int64    2    String    second --]]
+	 
+	local table2 = _UtilLogic:StringToTable(tableToString)
+	for i = 1, #table2 do
+		log(table2[i])
+	end
+	-- first
+	-- second
+}
+Method:
+boolean CalcCritical (Entity attacker, Entity defender, string attackInfo)
+{
+	return _UtilLogic:RandomDouble() < 0.3
+}

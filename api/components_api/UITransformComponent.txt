@@ -1,0 +1,45 @@
+Property:
+[None]
+number offset = 0
+[None]
+number dir = 1.0
+
+Method:
+[client only]
+void OnUpdate (number delta)
+{
+	local offsetPerDelta = delta * 100.0 * self.dir
+	self.offset = self.offset + offsetPerDelta
+	 
+	if self.dir > 0 and self.offset >= 100 then
+		self.dir = -1.0
+	elseif self.dir < 0 and self.offset <= 0 then
+		self.dir = 1.0
+	end
+	 
+	 
+	local uiTransform = self.Entity.UITransformComponent
+	if uiTransform then
+		if uiTransform.AlignmentOption ~= AlignmentType.StretchAll then
+			uiTransform.AlignmentOption = AlignmentType.StretchAll
+			uiTransform.anchoredPosition = Vector2.zero
+			uiTransform.OffsetMax = Vector2.zero
+			uiTransform.OffsetMin = Vector2.zero
+		end
+		 
+		uiTransform.OffsetMin = Vector2(self.offset, self.offset)
+		uiTransform.OffsetMax = Vector2(-self.offset, -self.offset)
+		 
+	end
+	 
+	local guiRenderer = self.Entity.SpriteGUIRendererComponent
+	if guiRenderer then
+		if self.dir > 0 then
+			guiRenderer.Color = Color.red
+			elseif self.dir < 0 then
+			guiRenderer.Color = Color.green
+		else
+			guiRenderer.Color = Color.white
+		end
+	end
+}

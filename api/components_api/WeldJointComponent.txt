@@ -1,0 +1,23 @@
+Method:
+[server]
+void Connect (Entity target)
+{
+	self.Entity.WeldJointComponent:AddJoint(target, Vector2(0, -1), Vector2.zero)
+}
+
+Event Handler:
+[self]
+HandlePhysicsContactBeginEvent (PhysicsContactBeginEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: PhysicsColliderComponent
+	-- Space: Server, Client
+	---------------------------------------------------------
+	
+	-- Parameters
+	local ContactedBodyEntity = event.ContactedBodyEntity
+	---------------------------------------------------------
+	if ContactedBodyEntity.Name == "SnowBody" and self.Entity.WeldJointComponent:GetJointsCount() == 0 then
+		self:Connect(ContactedBodyEntity)
+	end
+}

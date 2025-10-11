@@ -1,0 +1,30 @@
+Method:
+[client only]
+void OnBeginPlay ()
+{
+	-- 현재 맵의 모든 Entity를 순회하며 PortalComponent를 가진 Entity들의 EntityRef 저장
+	self._T.portalRefList = {}
+	local function findAndAddPortal(parent)
+		-- 자기 자신은 제외
+		if parent.PortalComponent ~= nil and parent ~= self.Entity then
+			table.insert(self._T.portalRefList, EntityRef(parent))
+		end
+		if parent.Children ~= nil then
+			for i, k in ipairs(parent.Children) do
+				findAndAddPortal(k)
+			end
+		end
+		end
+	      
+	findAndAddPortal(self.Entity.CurrentMap)
+	      
+	-- 자신 외에 포탈이 없다면 Return
+	if #self._T.portalRefList < 1 then
+		return
+	end
+	     
+	-- 1초마다 연결된 포탈을 랜덤하게 변경하는 타이머 설정
+	_TimerService:SetTimerRepeat(function()
+		self.Entity.PortalComponent.PortalEntityRef = self._T.portalRefList[_UtilLogic:RandomIntegerRange(1, #self._T.portalRefList)]
+	end, 1)
+}

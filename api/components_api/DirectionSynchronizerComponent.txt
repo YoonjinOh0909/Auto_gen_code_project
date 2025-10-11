@@ -1,0 +1,8 @@
+Method:
+[server only]
+void OnBeginPlay()
+{
+	local modelId = "Model Entry ID"
+	local attachedEntity = _SpawnService:SpawnByModelId(modelId, "attachedEntity", Vector3.zero, self.Entity, "")
+	attachedEntity:AddComponent("DirectionSynchronizerComponent")
+}

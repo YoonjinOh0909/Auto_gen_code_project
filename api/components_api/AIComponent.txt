@@ -1,0 +1,71 @@
+Property:
+[Sync]
+number DetectDistance = 4
+
+Method:
+[server only]
+void OnBeginPlay ()
+{
+	local chatBallon = self.Entity.ChatBalloonComponent
+	if chatBallon == nil then
+		chatBallon = self.Entity:AddComponent(ChatBalloonComponent)
+	end
+	 
+	self._T.nearestPlayer = nil
+	 
+	chatBallon.AutoShowEnabled = true
+	chatBallon.ChatModeEnabled = false
+	chatBallon.ShowDuration = 1
+	chatBallon.HideDuration = 0
+	chatBallon.FontSize = 1.5
+	 
+	local function isNearPlayer(deltaTime)
+		local players = _UserService:GetUsersByMapComponent(self.Entity.CurrentMap.MapComponent)
+		self._T.nearestPlayer = nil
+		local dist = math.maxinteger
+		for i, player in pairs(players) do
+			if isvalid(player) then
+				local distTemp = Vector2.Distance(
+				player.TransformComponent.Position:ToVector2(), self.Entity.TransformComponent.Position:ToVector2())
+				dist = math.min(dist, distTemp)
+				if dist <= self.DetectDistance then
+					self._T.nearestPlayer = player
+				end
+			end
+		end
+	     
+		if self._T.nearestPlayer == nil then
+			return BehaviourTreeStatus.Failure
+		else
+			return BehaviourTreeStatus.Success
+		end
+	end
+	 
+	local function lookAtNearestPlayer(deltaTime)
+		local flipX = self.Entity.TransformComponent.Position.x < self._T.nearestPlayer.TransformComponent.Position.x
+		self.Entity.SpriteRendererComponent.FlipX = flipX
+		return BehaviourTreeStatus.Success
+	end
+	 
+	local function warn(deltaTime)
+		chatBallon.Message = "Don't come!"
+		return BehaviourTreeStatus.Success
+	end
+	 
+	local function sleep(deltaTime)
+		chatBallon.Message = "Zzz..."
+		return BehaviourTreeStatus.Success
+	end
+	 
+	local rootNode = SelectorNode("Root")
+	 
+	local alertSeq = SequenceNode("AlertSequence")
+	alertSeq:AttachChild(self:CreateLeafNode("IsNearPlayer", isNearPlayer))
+	alertSeq:AttachChild(self:CreateLeafNode("LookAtNearestPlayer", lookAtNearestPlayer))
+	alertSeq:AttachChild(self:CreateLeafNode("Warn", warn))
+	 
+	rootNode:AttachChild(alertSeq)
+	rootNode:AttachChild(self:CreateLeafNode("Sleep", sleep))
+	 
+	self:SetRootNode(rootNode)
+}

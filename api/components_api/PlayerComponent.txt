@@ -1,0 +1,15 @@
+[server only] [self]
+HandleTriggerEnterEvent (TriggerEnterEvent event) 
+{
+	-- Parameters
+	local TriggerBodyEntity = event.TriggerBodyEntity
+	--------------------------------------------------------
+	 
+	local player = self.Entity.PlayerComponent
+	 
+	if TriggerBodyEntity.Name == "Check Point" then
+	    player.RespawnPosition = TriggerBodyEntity.TransformComponent.Position
+	elseif TriggerBodyEntity.Name == "Do Not Touch" then
+	    self.Entity.PlayerComponent:ProcessDead()
+	end
+}

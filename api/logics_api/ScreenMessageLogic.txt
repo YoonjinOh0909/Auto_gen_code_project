@@ -1,0 +1,26 @@
+Event Hanlder:
+[server only] [service: UserService] 
+HandleUserEnterEvent (UserEnterEvent event)
+{
+	-- Parameters
+	local UserId = event.UserId
+	--------------------------------------------------------
+	  
+	local userEntity = _UserService:GetUserEntityByUserId(UserId)
+	local userName = userEntity.NameTagComponent.Name
+	
+	_ScreenMessageLogic:PublicMsg(userName .. " has entered")
+}
+Event Handler:
+[client only] [self]
+HandleDeadEvent (DeadEvent event)
+{
+	-- Parameters
+	--------------------------------------------------------
+	
+	if _UserService.LocalPlayer ~= self.Entity then
+		return
+	end
+	 
+	_ScreenMessageLogic:PrivateMsg("YOU DIED")
+}

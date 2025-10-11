@@ -1,0 +1,54 @@
+local code, mem = _WorldInstanceService:GetSharedMemory("memname")
+  
+-- current.Info.ETag에는 최신 ETag가 담겨 있습니다.
+local current = mem:GetVariableAndWait("varname")
+  
+-- keyInfo에 최신 ETag를 담아 보내야 공유 변수가 수정됩니다. 다른 값을 담으면 수정되지 않습니다. 단, 빈 문자열이나 nil을 담으면 무조건 공유 변수가 수정됩니다.
+local keyInfo = SharedVariableKeyInfo(current.Info.Name, current.Info.ETag)
+ 
+-- 성공 시, updated.Info.ETag에는 새롭게 발급받은 최신 ETag가 담겨 있습니다.
+local updated = mem:UpdateVariableAndWait(keyInfo, "new value")
+ 
+-- ETag 불일치로 인한 실패 시, SharedMemoryResultCode.PreconditionFailed 오류 코드가 반환됩니다.
+if updated.Code == SharedMemoryResultCode.PreconditionFailed then
+	error ("ETag Mismatch.")
+end
+Event Handler:
+[service: UserService] 
+HandleUserEnterEvent (UserEnterEvent event)
+{ 
+	--------------- Native Event Sender Info ----------------
+	-- Sender: UserService
+	-- Space: Server
+	---------------------------------------------------------
+	 
+	-- Parameters
+	local UserId = event.UserId
+	---------------------------------------------------------
+	 
+	local worldInstanceId = _WorldInstanceService.WorldInstanceId
+	local user = _UserService:GetUserEntityByUserId(UserId)
+	local nickname = user.PlayerComponent.Nickname
+	      
+	local evt = MyUserEnterEvent()
+	evt.WorldInstanceId = worldInstanceId
+	evt.Nickname = nickname
+	_WorldInstanceService:RequestSendEventToAllWorldInstancesAndWait(evt)
+}
+ 
+[service: WorldInstanceService]
+HandleMyUserEnterEvent (MyUserEnterEvent event)
+{
+	 -- Parameters
+	local WorldInstanceId = event.WorldInstanceId
+	local Nickname = event.Nickname
+	---------------------------------------------------------
+	 
+	local currWorldInstId = _WorldInstanceService.WorldInstanceId
+	 
+	if currWorldInstId == WorldInstanceId then
+		log ("User '" .. Nickname .. "' has entered this world instance.")
+	else
+		log ("User '" .. Nickname .. "' has entered another world instance.")
+	end
+}

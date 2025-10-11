@@ -1,0 +1,44 @@
+Function:
+[server]
+void Connect ()
+{
+	local ball = _EntityService:GetEntityByPath("/maps/map01/Ball")
+	
+	self.Entity.DistanceJointComponent:AddJoint(
+		ball,
+		Vector2.zero,
+		Vector2.zero,
+		Vector2.Distance(ball.TransformComponent.WorldPosition:ToVector2(), self.Entity.TransformComponent.WorldPosition:ToVector2())
+		)
+	
+	self.Entity.LineRendererComponent.Enable = true
+}
+
+[server]
+void Disconnect ()
+{
+	self.Entity.DistanceJointComponent.Joints:Clear()
+	
+	self.Entity.LineRendererComponent.Enable = false
+}
+
+Event Handler:
+[service: InputService]
+HandleKeyDownEvent (KeyDownEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: InputService
+	-- Space: Client
+	---------------------------------------------------------
+	
+	-- Parameters
+	local key = event.key
+	---------------------------------------------------------
+	if key == KeyboardKey.R then
+		if self.Entity.DistanceJointComponent:GetJointsCount() == 0 then
+			self:Connect()
+		else
+			self:Disconnect()
+		end
+	end
+}

@@ -1,0 +1,24 @@
+Method:
+[server only]
+void OnBeginPlay ()
+{
+        local simulator = _CollisionService:GetSimulator(self.Entity)
+        local transform = self.Entity.TransformComponent
+         
+        -- TriggerComponent의 충돌 그룹 기본값은 'TriggerBox'입니다.
+        local overlaps = simulator:OverlapCircleAll("TriggerBox", transform.WorldPosition:ToVector2(), 1)
+ 
+        for i = 1, #overlaps do
+            local trigger = overlaps[i]
+ 
+            if trigger.Entity == self.Entity then
+                continue
+            end
+ 
+            if trigger.EnableInHierarchy == false then
+                continue
+            end
+ 
+            log (trigger.Entity.Name)
+        end
+}

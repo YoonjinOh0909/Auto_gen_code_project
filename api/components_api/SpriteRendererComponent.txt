@@ -1,0 +1,21 @@
+Property:
+[Sync]
+number Meso = 0
+ 
+Method:
+[server only]
+void OnBeginPlay ()
+{
+	self.Meso = _UtilLogic:RandomIntegerRange(1, 1500)
+	local sprite = self.Entity.SpriteRendererComponent
+	 
+	if self.Meso < 50 then
+		sprite.SpriteRUID = "000000"
+	elseif self.Meso < 100 then
+		sprite.SpriteRUID = "000000"
+	elseif self.Meso < 1000 then
+		sprite.SpriteRUID = "000000"
+	else
+		sprite.SpriteRUID = "000000"
+	end
+}

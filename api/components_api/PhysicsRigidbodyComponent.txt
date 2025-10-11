@@ -1,0 +1,27 @@
+Event Handler:
+[self] HandlePhysicsContactBeginEvent (PhysicsContactBeginEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: PhysicsColliderComponent
+	-- Space: Server, Client
+	---------------------------------------------------------
+	
+	-- Parameters
+	local ContactedBodyEntity = event.ContactedBodyEntity
+	---------------------------------------------------------
+	ContactedBodyEntity.PhysicsRigidbodyComponent:ApplyLinearImpulse(Vector2(0, 5))
+}
+Event Handler:
+[self]
+HandlePhysicsContactBeginEvent (PhysicsContactBeginEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: PhysicsColliderComponent
+	-- Space: Server, Client
+	---------------------------------------------------------
+	
+	-- Parameters
+	local ContactedBodyEntity = event.ContactedBodyEntity
+	---------------------------------------------------------
+	ContactedBodyEntity.PhysicsRigidbodyComponent.GravityScale = 0.2
+}

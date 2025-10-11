@@ -1,0 +1,100 @@
+Event Handler:
+[self]
+HandleTouchEvent (TouchEvent event)
+{
+	-- Parameters
+	--------------------------------------------------------
+	 
+	local uiPath = "/ui/DefaultGroup/ExampleUI"
+	local targetUI = _EntityService:GetEntityByPath(uiPath)
+	 
+	targetUI:SetVisible(true)
+}
+Property:
+[None]
+table<integer> Index
+[None]
+any Handler = nil
+
+Method:
+[client]
+void Move (any screenholdEvent)
+{
+	local touchId = screenholdEvent.TouchId
+	local touchPoint = screenholdEvent.TouchPoint
+	 
+	local string
+	for i =1, #self.Index do
+		if self.Index[i] == touchId then
+			self.Entity.TransformComponent.WorldPosition = _UILogic:ScreenToWorldPosition(touchPoint):ToVector3()
+			break
+		end
+	end
+}
+
+[client]
+void AddHandler (integer touchId)
+{
+	if self.Handler ~= nil then
+		return
+	end
+	 
+	table.insert(self.index, touchId)
+	self.Handler = _InputService:ConnectEvent(ScreenTouchHoldEvent, self.Move)
+}
+
+Event Handler:
+[self]
+HandleTouchEvent (TouchEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: TouchReceiveComponent
+	-- Space: Client
+	---------------------------------------------------------
+	 
+	-- Parameters
+	local TouchId = event.TouchId
+	local TouchPoint = event.TouchPoint
+	---------------------------------------------------------
+	 
+	self:AddHandler(TouchId)
+}
+
+[self]
+HandleTouchHoldEvent (TouchHoldEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: TouchReceiveComponent
+	-- Space: Client
+	---------------------------------------------------------
+	 
+	-- Parameters
+	local TouchId = event.TouchId
+	local TouchPoint = event.TouchPoint
+	---------------------------------------------------------
+	self:AddHandler(TouchId)
+}
+
+[self]
+HandleTouchReleaseEvent (TouchReleaseEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: TouchReceiveComponent
+	-- Space: Client
+	---------------------------------------------------------
+	 
+	-- Parameters
+	local TouchId = event.TouchId
+	local TouchPoint = event.TouchPoint
+	---------------------------------------------------------
+	for i =1, #self.Index do
+		if self.Index[i] == TouchId then
+			table.remove(self.index, i)
+			if #self.Index <= 0 then
+				_InputService:DisconnectEvent(ScreenTouchHoldEvent, self.handler)
+				self.Handler = nil
+			end
+			break
+		end
+	end
+}

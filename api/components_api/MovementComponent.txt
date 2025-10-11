@@ -1,0 +1,43 @@
+[Sync]
+boolean IsStarted = false
+[Sync]
+boolean IsFinished = false 
+
+Method:
+[client only]
+void OnUpdate (number delta)
+{
+	if self.IsFinished then
+		-- 입력에 의한 이동도 불가능
+		self.Entity.MovementComponent:Stop() 
+		return
+	end
+	 
+	if self.IsStarted == false and self.Entity.MovementComponent:IsFaceLeft() then
+		self.IsStarted = true
+	end
+ 
+	if self.IsStarted == false then
+		return
+	end
+ 
+	self.Entity.MovementComponent:MoveToDirection(Vector2(1,0), delta)
+}
+
+Event Hanlder:
+[client only] [self]
+HandleTriggerEnterEvent (TriggerEnterEvent event)
+{
+	-- Parameters
+	local TriggerBodyEntity = event.TriggerBodyEntity
+	--------------------------------------------------------
+ 
+	if TriggerBodyEntity.Name == "Name" then
+		self.Entity.MovementComponent.JumpForce = 1.5
+		self.Entity.MovementComponent:Jump()
+	elseif TriggerBodyEntity.Name == "Name" then
+		self.Entity.MovementComponent:DownJump()
+	elseif TriggerBodyEntity.Name == "Name" then
+		self.IsFinished = true
+	end
+}

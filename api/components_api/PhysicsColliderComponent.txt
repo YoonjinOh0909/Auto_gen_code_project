@@ -1,0 +1,24 @@
+Method:
+[server only]
+void OnBeginPlay ()
+{
+	self.Entity.PhysicsRigidbodyComponent:Sleep()
+}
+
+[server]
+void Change ()
+{
+	self.Entity.SpriteRendererComponent.SpriteRUID = "000000"
+	self.Entity.PhysicsColliderComponent.CollisionGroup = CollisionGroups.Monster
+}
+
+Event Handler:
+[service: InputService]
+{
+	-- Parameters
+	local key = event.key
+	--------------------------------------------------------
+	if key == KeyboardKey.P then
+	    self:Change()
+	end
+}

@@ -1,0 +1,35 @@
+Property:
+[None]
+YoutubePlayerWorldComponent youtubePlayer = nil
+
+Method:
+[client only]
+void OnBeginPlay ()
+{
+	self.youtubePlayer = self.Entity.YoutubePlayerWorldComponent
+	self.youtubePlayer.Urls = {"Http://WebUrl"}
+}
+
+Event Handler:
+[service: InputService]
+HandleKeyDownEvent (KeyDownEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: InputService
+	-- Space: Client
+	---------------------------------------------------------
+	 
+	-- Parameters
+	local key = event.key
+	---------------------------------------------------------
+	 
+	if key == KeyboardKey.Alpha1 then
+		self.youtubePlayer:Play()
+	elseif key == KeyboardKey.Alpha2 then
+		self.youtubePlayer:Pause()
+	elseif key == KeyboardKey.Alpha3 then
+		self.youtubePlayer:Jump(20)
+	elseif key == KeyboardKey.Alpha4 then
+		self.youtubePlayer:PlayPause()
+	end
+}

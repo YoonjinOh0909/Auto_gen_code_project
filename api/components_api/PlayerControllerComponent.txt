@@ -1,0 +1,19 @@
+Method:
+[client only]
+void OnBeginPlay ()
+{
+	self.Entity.PlayerControllerComponent:SetActionKey(KeyboardKey.B, "Attack")
+	self.Entity.PlayerControllerComponent:SetActionKey(KeyboardKey.N, "Jump")	 
+	self.Entity.PlayerControllerComponent:SetActionKey(KeyboardKey.G, "MyPlayerAction")
+}
+
+Event Handler:
+[self]
+HandlePlayerActionEvent (PlayerActionEvent event)
+{
+	-- Parameters
+	local ActionName = event.ActionName
+	local PlayerEntity = event.PlayerEntity
+	--------------------------------------------------------
+	log(ActionName)
+}

@@ -1,0 +1,41 @@
+Method:
+[server]
+void Accelerate()
+{
+	self.Entity.WheelJointComponent:SetMotorEnable(1, true)
+	self.Entity.WheelJointComponent:SetMotorSpeed(1, -10)
+}
+
+[server]
+void Deaccelerate()
+{
+	self.Entity.WheelJointComponent:SetMotorEnable(1, true)
+	self.Entity.WheelJointComponent:SetMotorSpeed(1, 10)
+}
+
+[server]
+void EngineOff()
+{
+	self.Entity.WheelJointComponent:SetMotorEnable(1, false)
+}
+
+Event Handler:
+[service: InputService]
+HandleKeyDownEvent(KeyDownEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: InputService
+	-- Space: Client
+	---------------------------------------------------------
+	
+	-- Parameters
+	local key = event.key
+	---------------------------------------------------------
+	if key == KeyboardKey.R then
+		if self.Entity.DistanceJointComponent:GetJointsCount() == 0 then
+			self:Connect()
+		else
+			self:Disconnect()
+		end
+	end
+}

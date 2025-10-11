@@ -1,0 +1,42 @@
+Property:
+[Sync]
+boolean IsGettingHealed = false
+[Sync]
+number Hp = 1000
+ 
+Method:
+[server only]
+void OnUpdate (number delta)
+{
+	if self.IsGettingHealed then
+		local player = self.Entity.PlayerComponent
+		     
+		self.Hp = self.Hp + (10.0 * delta)
+		player.Hp = math.floor(self.Hp)
+	end
+}
+ 
+Event Handler:
+[server only] [self]
+HandleTriggerEnterEvent (TriggerEnterEvent event)
+{
+	-- Parameters
+	local TriggerBodyEntity = event.TriggerBodyEntity
+	--------------------------------------------------------
+	 
+	if TriggerBodyEntity.Name == "Heal" then
+		self.IsGettingHealed = true
+	end
+}
+ 
+[server only] [self]
+HandleTriggerLeaveEvent (TriggerLeaveEvent event)
+{
+	-- Parameters
+	local TriggerBodyEntity = event.TriggerBodyEntity
+	--------------------------------------------------------
+	 
+	if TriggerBodyEntity.Name == "Heal" then
+		self.IsGettingHealed = false
+	end
+}

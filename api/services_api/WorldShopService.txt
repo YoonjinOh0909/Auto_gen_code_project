@@ -1,0 +1,101 @@
+Method:
+[server only]
+void OnBeginPlay ()
+{
+	-- 상품 지급 콜백을 등록합니다.
+	_WorldShopService:SetProcessPurchaseCallback(self.ProcessPurchase)
+}
+
+[server only]
+boolean ProcessPurchase (any purchaseInfo)
+{
+	log("Process purchase. PurchaseId: " .. purchaseInfo.PurchaseId .. ", UserId: " .. purchaseInfo.UserId .. ", ProductId: " .. purchaseInfo.ProductId .. ", OrderNumber: " .. tostring(purchaseInfo.OrderNumber))
+	return true
+}
+Method:
+[server only]
+void OnBeginPlay ()
+{
+	-- 상품 ID별 지급 함수 테이블을 구성합니다.
+	-- 이 예제에서 지급 함수는 유저 Entity를 인자로 받고 지급 성공 여부를 boolean으로 리턴합니다.
+	self._T.productPurchaseFunctions = {}
+	  
+	-- ID가 "000000"인 상품은 유저에게 1000 코인을 지급합니다.
+	self._T.productPurchaseFunctions["000000"] = function(userEntity) return self:GiveCoin1000(userEntity) end
+	  
+	-- 상품 지급 콜백 등록
+	_WorldShopService:SetProcessPurchaseCallback(self.ProcessPurchase)
+}
+
+[server only]
+boolean ProcessPurchase (any purchaseInfo)
+{
+	local userEntity = _UserService:GetUserEntityByUserId(purchaseInfo.UserId)
+	 
+	if not _EntityService:IsValid(userEntity) then
+		-- 구매 유저의 엔티티를 찾을 수 없어 지급 실패
+		log_error("Process purchase failed. Cannot find user entity. UserId: " .. purchaseInfo.UserId)
+		return false
+	end
+	 
+	local productPurchaseFunction = self._T.productPurchaseFunctions[purchaseInfo.ProductId]
+	 
+	if productPurchaseFunction == nil then
+		-- 상품 ID에 대한 지급 함수를 찾을 수 없어 실패
+		log_error("Process purchase failed. Cannot find product purchase function. ProductId: " .. purchaseInfo.ProductId)
+		return false
+	end
+	 
+	-- 상품 지급을 시도합니다.
+	-- success: 오류 없이 함수 호출에 성공했는지 여부
+	-- result: 함수 호출에 성공했다면 함수 리턴값(상품 지급 여부). 함수 호출에서 오류가 있었다면 오류 메시지
+	local success, result = pcall(productPurchaseFunction, userEntity)
+	 
+	if success and result then
+		-- 오류가 발생하지 않았고, 상품 지급에 성공했습니다.
+		-- 이후에 성공한 구매 내역들을 확인할 수 있도록 기록을 남깁니다.
+		_LogStorageService:LogPurchaseInfo(purchaseInfo, "Success")
+		return true
+	else
+		-- 상품 지급에 실패했습니다.
+		log_error("Process purchase failed. Product purchase function failed. PurchaseId: " .. purchaseInfo.PurchaseId .. ", UserId: " .. purchaseInfo.UserId .. ", ProductId: " .. purchaseInfo.ProductId .. ", OrderNumber: " .. tostring(purchaseInfo.OrderNumber) .. ", Result: " .. tostring(result))
+		return false
+	end
+}
+
+[server only]
+boolean GiveCoin1000 (EntityRef userEntity)
+{
+	local walletComponent = userEntity.WalletComponent
+	 
+	if walletComponent == nil then
+		return false
+	end
+	 
+	-- 유저에게 1000 코인 지급
+	walletComponent:AddCoin(1000)
+	 
+	-- 상품 지급 성공
+	return true
+}
+Method:
+void SearchOnSaleItems ()
+{
+	-- 상품 종류가 아이템이고, 판매 상태가 판매 중인 상품을 검색합니다.
+	local pages = _WorldShopService:GetProductsAndWait(WorldShopProductType.Item, WorldShopProductStatus.Ing)
+	 
+	while true do
+		local pageDatas = pages:GetCurrentPageDatas()
+	     
+		for _, product in ipairs(pageDatas) do
+			-- 검색된 상품의 정보
+			log("Product Id: " .. product.Id .. ", Name: " .. product.Name .. ", Price: " .. tostring(product.Price))
+		end
+		     
+		if pages.IsLastPage then
+			break
+		end
+		    
+		pages:MoveToNextPageAndWait()
+	end
+}

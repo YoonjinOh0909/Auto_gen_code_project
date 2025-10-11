@@ -1,0 +1,8 @@
+local tween = self.Entity.TweenFloatingComponent
+ 
+-- 이동 거리 0.1
+tween.Amplitude = 0.1
+-- 주기 1초
+tween.OneCycleTime = 1
+-- 서서히 느려지다가 다시 빨라지는 효과
+tween.TweenType = EaseType.QuadEaseInOut

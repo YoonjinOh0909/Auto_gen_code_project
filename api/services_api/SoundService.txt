@@ -1,0 +1,58 @@
+Method:
+[client only]
+void OnBeginPlay()
+{
+	local defaultUIGroup = _EntityService:GetEntityByPath("/ui/DefaultGroup")
+	if defaultUIGroup == nil then
+		return
+	end
+	 
+	_SoundService:PlayBGM("92dc353287df4b7894dfcec950edea49", 1)
+	 
+	local buttonClickCallback = function()
+		if _SoundService:IsPlayBGM() then
+			 _SoundService:PauseBGM()
+		else
+			_SoundService:ResumeBGM()
+		end
+	end
+ 
+	local bgmToggleButton = _SpawnService:SpawnByModelId("Model Entry ID", "BGMToggleButton", Vector3.zero, defaultUIGroup)
+	bgmToggleButton.UITransformComponent.Position.y = 350
+	bgmToggleButton:ConnectEvent(ButtonClickEvent, buttonClickCallback)
+	 
+	local bgmToggleText = _SpawnService:SpawnByModelId("Model Entry ID", "BGMToggleText", Vector3.zero, bgmToggleButton).TextComponent
+	bgmToggleText.Text = "TOGGLE BGM"
+	bgmToggleText.Bold = true
+	bgmToggleText.FontColor = Color.white
+	bgmToggleText.UseOutLine = true
+}
+Method:
+[client only]
+void OnBeginPlay()
+{
+	local defaultUIGroup = _EntityService:GetEntityByPath("/ui/DefaultGroup")
+	if defaultUIGroup == nil then
+		return
+	end
+	 
+	-- 5초 동안 음원을 다섯번 재생합니다.
+	for i=1, 5 do
+		_SoundService:PlayLoopSound("0b52c64808f149e18532ec75417d27e1", 1)
+		wait(1)
+	end
+	 
+	local buttonClickCallback = function()
+		_SoundService:StopSound("0b52c64808f149e18532ec75417d27e1")
+	end
+	 
+	local stopFireworkSoundButton = _SpawnService:SpawnByModelId("Model Entry ID", "BGMToggleButton", Vector3.zero, defaultUIGroup)
+	stopFireworkSoundButton.UITransformComponent.Position.y = 250
+	stopFireworkSoundButton:ConnectEvent(ButtonClickEvent, buttonClickCallback)
+	 
+	local stopFireworkSoundText = _SpawnService:SpawnByModelId("Model Entry ID", "BGMToggleText", Vector3.zero, stopFireworkSoundButton).TextComponent
+	stopFireworkSoundText.Text = "STOP FIREWORK"
+	stopFireworkSoundText.Bold = true
+	stopFireworkSoundText.FontColor = Color.white
+	stopFireworkSoundText.UseOutLine = true
+}

@@ -1,0 +1,7 @@
+Method:
+[client only]
+void OnInitialize()
+{
+	self.Entity.MaskComponent.Softness = Vector2Int(10, 10)
+	self.Entity.MaskComponent.Padding = RectOffset(10, 10, 10, 10)
+}

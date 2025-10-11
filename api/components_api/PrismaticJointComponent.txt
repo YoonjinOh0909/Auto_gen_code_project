@@ -1,0 +1,32 @@
+Method:
+[server]
+void GoUp ()
+{
+	self.Entity.PrismaticJointComponent:SetMotorSpeed(1, 3)
+}
+
+[server]
+void GoDown ()
+{
+	self.Entity.PrismaticJointComponent:SetMotorSpeed(1, -3)
+}
+
+
+Event Handler:
+[service: InputService]
+HandleKeyDownEvent (KeyDownEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: InputService
+	-- Space: Client
+	---------------------------------------------------------
+	
+	-- Parameters
+	local key = event.key
+	---------------------------------------------------------
+	if key == KeyboardKey.W then
+		self:GoUp()
+	elseif key == KeyboardKey.S then
+		self:GoDown()
+	end
+}

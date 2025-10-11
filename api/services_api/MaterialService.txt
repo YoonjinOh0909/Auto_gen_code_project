@@ -1,0 +1,24 @@
+Property:
+[None]
+string materialId = ""
+
+Method:
+[client only]
+void OnBeginPlay ()
+{
+	self.materialId = _EntryService:GetMaterialIdByName("TestMaterial")
+}
+
+[client only]
+void OnUpdate (number delta)
+{
+	local playerWorldPosition = _UserService.LocalPlayer.TransformComponent.WorldPosition
+	 
+	local targetScreenPos = _UILogic:WorldToScreenPosition(Vector2(playerWorldPosition.x, playerWorldPosition.y))
+	targetScreenPos.x = targetScreenPos.x / _UILogic.ScreenWidth
+	targetScreenPos.y = targetScreenPos.y / _UILogic.ScreenHeight
+	 
+	local options = {["CenterPos"] = targetScreenPos}
+	 
+	_MaterialService:ChangeMaterialProperty(self.materialId, options)
+}

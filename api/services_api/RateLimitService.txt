@@ -1,0 +1,32 @@
+Method:
+[server only]
+void OnBeginPlay()
+{
+	-- TeleportService의 TeleportToEntityPath 함수에 제한을 설정합니다.
+	_RateLimitService:SetServerFunctionRateLimitForService("TeleportService", "TeleportToEntityPath", 3, 0.1)
+	 
+	-- 직접 만든 스크립트에도 제한을 설정할 수있습니다.
+	_RateLimitService:SetServerFunctionRateLimitForLogic("MyLogic", "MyFunction", 3, 0.1)
+	 
+	-- 특정 함수가 아닌, 모든 Server 실행 제어 함수의 호출량을 제한할 수도 있습니다.
+	_RateLimitService:SetTotalServerFunctionRateLimit(10, 1)
+}
+ 
+Event Handler:
+[server only] [service: UserService]
+HandleUserEnterEvent(UserEnterEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: UserService
+	-- Space: Server
+	---------------------------------------------------------
+	 
+	-- Parameters
+	local ProfileCode = event.ProfileCode
+	local UserId = event.UserId
+	---------------------------------------------------------
+	
+	-- 유저가 입장하면 PlayerComponent의 MoveToEntityByPath 함수에 제한을 설정합니다.
+	local userEntity = _UserService:GetUserEntityByUserId(UserId)
+	_RateLimitService:SetServerFunctionRateLimitForComponent(userEntity.Id, "PlayerComponent", "MoveToEntityByPath", 3, 0.1)
+}

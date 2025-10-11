@@ -1,0 +1,30 @@
+[server]
+void DestroyTargetEntity (string id)
+{
+	local entity = _EntityService:GetEntity(id)
+	_EntityService:Destroy(entity)
+}
+[server]
+void EnablePathEntities (string path, boolean enable)
+{
+	local entities = _EntityService:GetEntitiesByPath(path)
+	for k, v in pairs(entities) do
+		v.Enable = enable
+	end
+}
+[server]
+void VisibleTagEntities (string tag, boolean visible)
+{
+	local entities = _EntityService:GetEntitiesByTag(tag)
+	for k, v in pairs(entities) do
+		v.Visible = visible
+	end
+}
+[server]
+void JumpMoveMonsters ()
+{
+	local entities = _EntityService:GetEntitiesSpawnedByModelId("model://movemonster")
+	for k, v in pairs(entities) do
+		v.RigidbodyComponent:AddForce(Vector2(0.0, 5.0))
+	end
+}

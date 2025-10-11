@@ -1,0 +1,49 @@
+Property :
+[None]
+number ParticleSerial = 0
+   
+Event Handler:
+[service: InputService]
+HandleKeyDownEvent (KeyDownEvent event)
+{
+	-- Parameters
+	local key = event.key
+	--------------------------------------------------------
+	if key == KeyboardKey.Space or key == KeyboardKey.LeftAlt then
+		if not self.Entity.RigidbodyComponent:IsOnGround() then
+		local lookDirectionX = self.Entity.PlayerControllerComponent.LookDirectionX
+		self.Entity.RigidbodyComponent:SetForce(Vector2(lookDirectionX * 5, 3))
+		                 
+		local options = {
+			["SortingLayer"] = self.Entity.AvatarRendererComponent.SortingLayer,
+			["Color"] = Color(0.25,0.5,0.5,0.8)
+		}
+		local pos = self.Entity.TransformComponent.Position
+		         
+		_ParticleService:PlayBasicParticle(BasicParticleType.PillarBurst, self.Entity, pos, 90 * lookDirectionX, Vector3.one, false, options)
+		end
+	elseif key == KeyboardKey.Q then
+		self.ParticleSerial = _ParticleService:PlaySpriteParticleAttached(SpriteParticleType.StreamSharp, "000000", self.Entity, Vector3.zero, 0, Vector3.one, true)
+	end
+}
+  
+[service: InputService]
+HandleKeyUpEvent (KeyUpEvent event)
+{
+	-- Parameters
+	local key = event.key
+	--------------------------------------------------------
+	if key == KeyboardKey.Q then
+		_ParticleService:RemoveParticle(self.ParticleSerial)
+		     
+		local pos = self.Entity.TransformComponent.Position
+		local options = {
+			["SortingLayer"] = self.Entity.AvatarRendererComponent.SortingLayer,
+			["Color"] = Color(0.25,0.5,0.5,0.8),
+			["ParticleSize"] = 3,
+			["ParticleCount"] = 2
+		}
+		     
+		_ParticleService:PlaySpriteParticle(SpriteParticleType.BurstNova, "000000", self.Entity, pos, 0, Vector3.one, false, options)
+	end
+	}

@@ -1,0 +1,151 @@
+Method:
+[client only]
+void ResourceLoadWithLoadingScreen()
+{
+	-- 유저에게 로딩 화면을 보여줍니다. 
+	self:ShowLoadingScreen()
+	  
+	-- 로드할 리소스 목록입니다.
+	local ruids = {
+		"6d1a308b27164b02921d812b05c78cba",
+		 "0516d7594a394561893e04de713cfb6a",
+		 "ce55606c96d94c059227f2956a1ae786",
+		 "b64e41d2e3774276aa7db7bdb74410b9",
+		 "df9ce4abd6e24a619e72e6f592a28ce7"
+	}
+	  
+	-- 리소스 목록 로드를 시작합니다. 로드가 완료되면 로딩 화면을 숨기는 콜백이 실행됩니다.
+	_ResourceService:PreloadAsync(ruids, function()
+	
+	 -- 로딩 화면을 숨깁니다. 
+	 	self:HideLoadingScreen()
+	end)
+}
+[server only]
+void OnBeginPlay()
+{
+	-- 스프라이트 업로드 허용 여부 결정 콜백을 등록합니다.
+	_ResourceService:SetSpriteUploadValidationCallback(self.ValidateSpriteUpload)
+}
+
+[server only]
+boolean ValidateSpriteUpload(string userId)
+{
+	if self:IsAuthorizedUser(userId) == false then
+		-- 스프라이트 업로드를 막습니다.
+		return false
+	end
+	  
+	-- 스프라이트 업로드를 허용합니다.
+	return true
+}
+[client only]
+void CaptureScreenshotAndUpload()
+{
+	-- 스크린샷을 찍어 데이터화합니다.
+	local screenshotError, pixelData = _ScreenshotService:CaptureFullScreenAsPixelDataAndWait()
+	 
+	-- 스크린샷을 찍는 과정에서 오류가 발생했는지 확인합니다.
+		if screenshotError ~= ScreenshotError.Success then
+		log_error("Failed to capture screenshot. error: " .. tostring(screenshotError))
+		return
+	end
+	 
+	-- 스크린샷 데이터를 업로드하여 스프라이트 리소스로 만듭니다.
+	-- 업로드가 완료되면 콜백으로 지정한 OnScreenshotUploaded 함수가 호출됩니다.
+	_ResourceService:RequestSpriteUploadAsync(pixelData, self.OnScreenshotUploaded)
+}
+
+
+[client only]
+void OnScreenshotUploaded(any resourceUploadError,string ruid)
+{
+	-- 스크린샷 업로드 과정에서 오류가 발생했는지 확인합니다.
+	if resourceUploadError ~= ResourceUploadError.Success then
+	 	log_error("Failed to upload screenshot. error: " .. tostring(resourceUploadError))
+		return
+	end
+	 
+	-- 업로드에 성공했다면 스크린샷으로 만들어진 스프라이트 리소스의 RUID를 전달받습니다.
+	-- 전달받은 RUID를 SpriteRendererComponent 에 지정하여 스프라이트를 확인합니다.
+	self.Entity.SpriteRendererComponent.SpriteRUID = ruid
+}
+Event Handler:
+[server only] 
+[service: ResourceService]
+HandleResourceUploadEvent
+{
+	-- Parameters
+	local RUID = event.RUID
+	local UserId = event.UserId
+	--------------------------------------------------------
+	  
+	-- 리소스 업로드에 성공했을 때 서버에서 발생하는 이벤트입니다.
+	local userEntity = _UserService:GetUserEntityByUserId(UserId)
+	 
+	if _EntityService:IsValid(userEntity) then
+		self:RecordUploadedResource(RUID, UserId)
+	end
+}
+Method:
+void OnBeginPlay()
+{
+	-- sprite
+	local type = _ResourceService:GetTypeAndWait('f55cd1b715c14593a97caff8b147d544')
+	log(type)
+	 
+	-- animationclip
+	local type2 = _ResourceService:GetTypeAndWait('235ede11f6a24ecb85f6271833d06ba0')
+	log(type2)
+}
+
+Method:
+[client only]
+void UpgradeSkill(string id)
+{
+	-- 스킬의 제거 및 추가를 담당하는 함수들을 호출합니다.
+	self:RemoveSkill(self.currentId)
+	self.currentId = id
+	self:AddSkill(self.currentId)
+	     
+	 
+	local oldRuids = self.currentRuids
+	-- 이전 스킬에서 사용하던 리소스들을 캐시에서 해제합니다.
+	_ResourceService:RemoveCaches(oldRuids)
+	 
+	-- 캐싱 되지 않고 사용하지도 않는 리소스들을 메모리에서 해제합니다.
+	_ResourceService:UnloadUnusedResources(0)
+	 
+	-- 로드 할 리소스 목록을 가지고 옵니다.
+	local newRuids = self:GetRuids(id)
+	   
+	self.currentRuids = newRuids
+	self.currentId = id
+	 
+	-- 리소스 목록 로드를 시작합니다. 로드가 완료되면 이후 동작을 담당하는 함수를 호출합니다.
+	_ResourceService:PreloadAsync(newRuids, function()
+		self:AfterLoadSkillResource()
+	end)
+}
+ 
+[client only]
+table GetRuids(string id)
+{
+	-- ruids 정보가 초기화되지 않은 경우 초기화합니다.
+	if self.cachedRuidsById == nil then
+		self:InitializeRuids()
+	end
+
+	local ruids = self.cachedRuidsById[id]
+	return ruids
+}
+Method:
+[client only]
+void BeforeMoveLobbyMap()
+{
+	-- 캐싱된 모든 리소스를 캐시에서 해제합니다.
+	_ResourceService:ClearCaches()
+	     
+	-- 맵 이동 시 UnloadUnusedResources()는 내부적으로 자동 호출됩니다.
+	-- _ResourceService:UnloadUnusedResources(0)
+}

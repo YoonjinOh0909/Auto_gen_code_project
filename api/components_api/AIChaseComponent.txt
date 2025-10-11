@@ -1,0 +1,62 @@
+Method:
+[server only]
+void OnBeginPlay ()
+{
+	local aiChaseComponent = self.Entity.AIChaseComponent
+	if aiChaseComponent == nil then
+		return
+	end
+	 
+	aiChaseComponent.IsChaseNearPlayer = false
+	 
+	local chatBallon = self.Entity.ChatBalloonComponent
+	if chatBallon == nil then
+		chatBallon = self.Entity:AddComponent(ChatBalloonComponent)
+	end
+	 
+	chatBallon.ChatModeEnabled = false
+	chatBallon.ShowDuration = 1
+	chatBallon.HideDuration = 0
+	chatBallon.FontSize = 1.2
+}
+
+[server only]
+void OnUpdate (number delta)
+{
+	if self.Entity.ChatBalloonComponent == nil then
+		return
+	end
+
+	local currentTargetEntity = self.Entity.AIChaseComponent:GetCurrentTarget()
+	if currentTargetEntity == nil then
+		self.Entity.ChatBalloonComponent.AutoShowEnabled = false
+	else
+		self.Entity.ChatBalloonComponent.AutoShowEnabled = true
+		self.Entity.ChatBalloonComponent.Message = "target is "..currentTargetEntity.Name
+	end
+}
+
+Event Handler:
+[self]
+HandleHitEvent (HitEvent event)
+{
+	--------------- Native Event Sender Info ----------------
+	-- Sender: HitComponent
+	-- Space: Server, Client
+	---------------------------------------------------------
+	 
+	-- Parameters
+	local AttackCenter = event.AttackCenter
+	local AttackerEntity = event.AttackerEntity
+	local Damages = event.Damages
+	local Extra = event.Extra
+	local FeedbackAction = event.FeedbackAction
+	local IsCritical = event.IsCritical
+	local TotalDamage = event.TotalDamage
+	---------------------------------------------------------
+	if self.Entity.AIChaseComponent == nil then
+		return
+	end
+	 
+	self.Entity.AIChaseComponent:SetTarget(AttackerEntity)
+}

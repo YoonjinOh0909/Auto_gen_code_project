@@ -1,0 +1,32 @@
+Property:
+[Sync]
+BasicParticleComponent ParticleComponent = nil
+
+Method:
+[client only]
+void OnBeginPlay
+{
+	self.ParticleComponent = self.Entity.BasicParticleComponent
+	 
+	self.ParticleComponent.PlaySpeed = _UtilLogic:RandomDouble() * 2
+	self.ParticleComponent.ParticleCount = 2
+}
+
+Event Handler:
+[service: InputService]
+HandleKeyDownEvent (KeyDownEvent event)
+{
+	----------------- Native Emitter Info ------------------
+	-- Emitter: InputService
+	-- Space: Client
+	--------------------------------------------------------
+	 
+	-- Parameters
+	local key = event.key
+	--------------------------------------------------------
+	if key == KeyboardKey.Q then
+		self.ParticleComponent:Stop()
+	elseif key == KeyboardKey.E then
+		self.ParticleComponent:Play()
+	end
+}
